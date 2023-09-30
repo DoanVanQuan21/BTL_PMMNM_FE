@@ -12,54 +12,54 @@
     "jsxFragmentFactory": "Fragment",
     "paths": {
       "#imports": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE/.nuxt/types/nitro-imports"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE/.nuxt/types/nitro-imports"
       ],
       "#paths": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE/node_modules/nuxt/dist/core/runtime/nitro/paths"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE/node_modules/nuxt/dist/core/runtime/nitro/paths"
       ],
       "~": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE"
       ],
       "~/*": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE/*"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE/*"
       ],
       "@": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE"
       ],
       "@/*": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE/*"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE/*"
       ],
       "~~": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE"
       ],
       "~~/*": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE/*"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE/*"
       ],
       "@@": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE"
       ],
       "@@/*": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE/*"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE/*"
       ],
       "assets": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE/assets"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE/assets"
       ],
       "assets/*": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE/assets/*"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE/assets/*"
       ],
       "public": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE/public"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE/public"
       ],
       "public/*": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE/public/*"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE/public/*"
       ],
       "pinia": [
-        "/Users/thuydt/Documents/BTL_PMMNM_FE/node_modules/pinia/dist/pinia"
+        "D:/Users/thuydt/Documents/BTL_PMMNM_FE/node_modules/pinia/dist/pinia"
       ]
     }
   },
   "include": [
-    "/Users/thuydt/Documents/BTL_PMMNM_FE/.nuxt/types/nitro-nuxt.d.ts",
+    "D:/Users/thuydt/Documents/BTL_PMMNM_FE/.nuxt/types/nitro-nuxt.d.ts",
     "./types/nitro.d.ts",
     "../**/*",
     "../server/**/*"
