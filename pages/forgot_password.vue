@@ -58,7 +58,7 @@ async function send() {
                     <div class="row">
                       <div class="col-sm-10">
                         <input type="text" id="email" class="form-control rounded-pill border border-1 border-dark" name="email" v-model="userCredentials.email" aria-describedby="nameHelp" placeholder="Nhập địa chỉ email">
-                        <div class="form-text" :style="{color: errMessages.textColor}">{{ errMessages.content }}</div>
+                        <div class="form-text" :style="{ color: errMessages.textColor }">{{ errMessages.content }}</div>
                         <div>{{ errMessages.errorUsername }}</div>
                       </div>
                     </div>
@@ -114,17 +114,17 @@ async function send() {
     margin-left:0px !important;
   }
 }
-@media (min-width: 576px) and (max-width: 767.98px) { 
+@media (min-width: 576px) and (max-width: 767.98px) {
   .logo{
     text-align:center !important;
   }
 }
-@media (min-width: 768px) and (max-width: 991.98px) { 
+@media (min-width: 768px) and (max-width: 991.98px) {
   .logo{
     text-align:center !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1199.98px) { 
+@media (min-width: 992px) and (max-width: 1199.98px) {
   .logo{
     text-align:center !important;
   }
