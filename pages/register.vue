@@ -2,9 +2,6 @@
 definePageMeta({
   layout: 'blank',
 })
-
-const authStore = useAuthStore()
-
 const userCredentials = reactive({
   fullname: '',
   username: '',
@@ -12,16 +9,6 @@ const userCredentials = reactive({
   confirmPassword: '',
   permission: ['Bác sĩ', 'Y tá', 'Lễ tân'],
 })
-
-const isInvalidLoginForm = computed(
-  () => !userCredentials.username || !userCredentials.password,
-)
-
-async function handleRegister() {
-  if (isInvalidLoginForm.value)
-    return
-  await authStore.login(userCredentials)
-}
 </script>
 
 <template>
