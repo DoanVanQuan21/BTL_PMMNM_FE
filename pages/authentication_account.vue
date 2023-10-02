@@ -3,8 +3,6 @@ definePageMeta({
   layout: 'blank',
 })
 
-const authStore = useAuthStore()
-
 const userCredentials = reactive({
   username: '',
   password: '',
@@ -14,12 +12,6 @@ const errMessages = reactive({
   textColor: '',
   errEmail: '',
 })
-const isValidUsername = computed(
-  () => !userCredentials.username,
-)
-const isValidPassword = computed(
-  () => !userCredentials.password,
-)
 async function send() {
   return navigateTo('/login')
 }
@@ -29,7 +21,7 @@ async function send() {
   <div class="container-lg header">
     <div class="row pt-5 ms-auto me-auto">
       <div class="col-lg-6 background_login text-center">
-        <img src="~/assets/images/background_1.png" class="img-fluid" style="height=100%;" />
+        <img src="~/assets/images/background_1.png" class="img-fluid" style="height=100%;">
       </div>
       <div class="col-lg-6">
         <div class="row">
@@ -41,21 +33,23 @@ async function send() {
         </div>
         <div class="row pt-5 pb-5">
           <div class="col-lg-6 offset-lg-3">
-            <h1 class="text-center">Xác thực tài khoản</h1>
+            <h1 class="text-center">
+              Xác thực tài khoản
+            </h1>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-12 ms-5" id="loginForm">
+          <div id="loginForm" class="col-lg-12 ms-5">
             <div class="login-form ">
               <form>
                 <div class="row py-2">
                   <div class="col-lg-12">
                     <div class="row">
-                      <label for="email" class="col-sm-4 form-label text-start fw-semibold"><i class="fa-regular fa-user"></i> Địa chỉ email</label>
+                      <label for="email" class="col-sm-4 form-label text-start fw-semibold"><font-awesome-icon :icon="['fas', 'envelope']" /> Địa chỉ email</label>
                     </div>
                     <div class="row">
                       <div class="col-sm-10">
-                        <input type="text" id="email" class="form-control rounded-pill border border-1 border-dark" name="email" v-model="userCredentials.email" aria-describedby="nameHelp" placeholder="Nhập địa chỉ email">
+                        <input id="email" v-model="userCredentials.email" type="text" class="form-control rounded-pill border border-1 border-dark" name="email" aria-describedby="nameHelp" placeholder="Nhập địa chỉ email">
                         <div>{{ errMessages.errEmail }}</div>
                       </div>
                     </div>
@@ -64,13 +58,14 @@ async function send() {
                 <div class="row py-2">
                   <div class=" col-lg-10 text-end">
                     <button type="button" class="btn-send btn btn-primary" @click="send">
-                      <i class="fa-solid fa-right-to-bracket" />Gửi</button>
+                      Gửi <font-awesome-icon :icon="['fas', 'paper-plane']" />
+                    </button>
                   </div>
                 </div>
-                <div class = "row py-2">
-                    <div class="col-lg-10 text-center text-info fs-5">
-                        <a href="./login" class="text-decoration-none">Trở về trang đăng nhập</a>
-                    </div>
+                <div class="row py-2">
+                  <div class="col-lg-10 text-center text-info fs-5">
+                    <a href="./login" class="text-decoration-none">Trở về trang đăng nhập</a>
+                  </div>
                 </div>
               </form>
             </div>
@@ -111,17 +106,17 @@ async function send() {
     margin-left:0px !important;
   }
 }
-@media (min-width: 576px) and (max-width: 767.98px) { 
+@media (min-width: 576px) and (max-width: 767.98px) {
   .logo{
     text-align:center !important;
   }
 }
-@media (min-width: 768px) and (max-width: 991.98px) { 
+@media (min-width: 768px) and (max-width: 991.98px) {
   .logo{
     text-align:center !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1199.98px) { 
+@media (min-width: 992px) and (max-width: 1199.98px) {
   .logo{
     text-align:center !important;
   }

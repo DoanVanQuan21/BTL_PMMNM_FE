@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['nuxt-icon', '@pinia/nuxt', '@nuxtjs/tailwindcss', '@vueuse/nuxt'],
   css: [
+    '@fortawesome/fontawesome-svg-core/styles.css',
     'bootstrap/dist/css/bootstrap.css',
   ],
   pinia: {

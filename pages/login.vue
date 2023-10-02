@@ -4,12 +4,12 @@ definePageMeta({
 })
 const sologon = 'Chúng tôi sẽ không bao giờ chia sẻ thông tin của bạn với bất kỳ ai.'
 const authStore = useAuthStore()
-
 const userCredentials = reactive({
   username: '',
   password: '',
 })
 const errMessages = reactive({
+  isError: true,
   textColor: '',
   errorUsername: '',
   errorPassword: '',
@@ -64,8 +64,9 @@ function validPassword() {
   return true
 }
 async function handleLogin() {
-  if (validUsername() || ValidPassword())
+  if (validUsername() || validPassword())
     return
+  // eslint-disable-next-line no-alert
   alert('Đăng nhập thành công')
   await authStore.login(userCredentials)
 }
@@ -75,7 +76,7 @@ async function handleLogin() {
   <div class="container-lg header">
     <div class="row pt-5 ms-auto me-auto">
       <div class="col-lg-6 background_login text-center">
-        <img src="~/assets/images/background_1.png" class="img-fluid" style="height=100%;" />
+        <img src="~/assets/images/background_1.png" class="img-fluid" style="height=100%;">
       </div>
       <div class="col-lg-6">
         <div class="row">
@@ -87,23 +88,29 @@ async function handleLogin() {
         </div>
         <div class="row pt-5 pb-5">
           <div class="col-lg-6 offset-lg-3">
-            <h1 class="text-center">Đăng nhập</h1>
+            <h1 class="text-center">
+              Đăng nhập
+            </h1>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-12 ms-5" id="loginForm">
+          <div id="loginForm" class="col-lg-12 ms-5">
             <div class="login-form ">
               <form>
                 <div class="row py-2">
                   <div class="col-lg-12">
                     <div class="row">
-                      <label for="inputName" class="col-sm-4 form-label text-start fw-semibold"><i class="fa-solid fa-user"></i> Tên đăng nhập</label>
+                      <label for="inputName" class="col-sm-4 form-label text-start fw-semibold"><font-awesome-icon :icon="['fas', 'user']" /> Tên đăng nhập</label>
                     </div>
                     <div class="row">
                       <div class="col-sm-10">
-                        <input type="text" class="form-control rounded-pill border border-1 border-dark" name="username" v-model="userCredentials.username" @keyup="validUsername" aria-describedby="nameHelp" placeholder="Nhập tên tài khoản">
-                        <div class="form-text">{{ errMessages.content }}</div>
-                        <div :style="{color: errMessages.textColor}">{{ errMessages.errorUsername }}</div>
+                        <input v-model="userCredentials.username" type="text" class="form-control rounded-pill border border-1 border-dark" name="username" aria-describedby="nameHelp" placeholder="Nhập tên tài khoản" @keyup="validUsername">
+                        <div class="form-text">
+                          {{ errMessages.content }}
+                        </div>
+                        <div :style="{ color: errMessages.textColor }">
+                          {{ errMessages.errorUsername }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -111,30 +118,33 @@ async function handleLogin() {
                 <div class="row py-2">
                   <div class="col-lg-12">
                     <div class="row">
-                      <label for="inputPass" class="col-sm-4 form-label text-start fw-semibold">Mật khẩu</label>
+                      <label for="inputPass" class="col-sm-4 form-label text-start fw-semibold"><font-awesome-icon :icon="['fas', 'key']" /> Mật khẩu</label>
                     </div>
                     <div class="row">
                       <div class="col-sm-10">
-                        <input type="password" class="form-control rounded-pill border border-dark" name="password" v-model="userCredentials.password" @keyup="validPassword" placeholder="Nhập mật khẩu">
-                        <div :style="{color: errMessages.textColor}">{{ errMessages.errorPassword }}</div>
+                        <input v-model="userCredentials.password" type="password" class="form-control rounded-pill border border-dark" name="password" placeholder="Nhập mật khẩu" @keyup="validPassword">
+                        <div :style="{ color: errMessages.textColor }">
+                          {{ errMessages.errorPassword }}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row py-2">
                   <div class="col-sm-6 text-start">
-                    <input type="checkbox" class="form-check-input" id="chkSave">
+                    <input id="chkSave" type="checkbox" class="form-check-input">
                     <label class=" form-check-label " for="chkSave">Nhớ tài khoản?</label>
                   </div>
                   <div class="col-sm-4 offset-sm-1 text-start">
                     <a href="./forgot_password" class="text-decoration-none">
-                      <i class="fa-solid fa-key" /> Quên mật khẩu?</a>
+                      <font-awesome-icon :icon="['fas', 'unlock']" /> Quên mật khẩu?</a>
                   </div>
                 </div>
                 <div class="row py-2">
                   <div class=" col-lg-10 text-end">
                     <button type="button" class="btn-login btn btn-primary" @click="handleLogin">
-                      <i class="fa-solid fa-right-to-bracket" />Đăng nhập</button>
+                      Đăng nhập <font-awesome-icon :icon="['fas', 'arrow-right-to-bracket']" />
+                    </button>
                   </div>
                 </div>
               </form>
@@ -159,8 +169,6 @@ async function handleLogin() {
   }
   .btn-login:hover{
     width:35%;
-    background-color:red;
-    color:white;
   }
   .background_login img{
     width:600px;
@@ -176,7 +184,7 @@ async function handleLogin() {
     margin-left:0px !important;
   }
 }
-@media (min-width: 576px) and (max-width: 767.98px) { 
+@media (min-width: 576px) and (max-width: 767.98px) {
   .container-logo{
     display: flex !important;
     justify-content: center !important;
