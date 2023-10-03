@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { BaseEnable } from '~/assets/ts/template'
+
 const { getUser, logout } = useAuthStore()
 await getUser()
 </script>
@@ -7,28 +9,18 @@ await getUser()
   <div class="dashboard-layout">
     <LayoutDashboardNavbar @logout="logout" />
     <LayoutDashboardSidebar />
-    <main class="main-content">
-      <div class="slot-content">
-        <div class="content">
-          <slot />
-        </div>
-      </div>
+    <main id="main" class="main bg-secondary-subtle" :style="{ marginLeft: BaseEnable.margin_left }">
+      <slot />
     </main>
   </div>
 </template>
 
 <style scoped lang="scss">
-.dashboard-layout {
-  > .main-content {
-    @apply p-4 sm:ml-64;
-
-    > .slot-content {
-      @apply p-4 mt-14 rounded-lg;
-    }
-
-    > .slot-content > .content {
-      @apply overflow-x-auto shadow-md sm:rounded-lg;
-    }
-  }
+@import url('~/assets/scss/main.scss');
+#main{
+  margin-top: 60px;
+  padding: 10px 10px 10px 10px;
+  transition: all 0.3s;
+  background-color: white;
 }
 </style>

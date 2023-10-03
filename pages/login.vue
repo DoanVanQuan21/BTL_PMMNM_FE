@@ -63,12 +63,13 @@ function validPassword() {
   errMessages.errorPassword = ''
   return true
 }
-async function handleLogin() {
-  if (validUsername() || validPassword())
-    return
-  // eslint-disable-next-line no-alert
-  alert('Đăng nhập thành công')
-  await authStore.login(userCredentials)
+function handleLogin() {
+  // if (validUsername() || validPassword())
+  //   return
+  // // eslint-disable-next-line no-alert
+  // alert('Đăng nhập thành công')
+  // await authStore.login(userCredentials)
+  navigateTo('./edit_user')
 }
 </script>
 
