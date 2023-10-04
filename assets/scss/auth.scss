@@ -1,0 +1,60 @@
+.logo {
+    width: 225px;
+}
+
+.login-title {
+    font-size: 1.2rem;
+}
+
+.btn-login {
+    width: 30%;
+    transition: width 2s;
+}
+
+.btn-login:hover {
+    width: 35%;
+}
+
+.background_login img {
+    width: 600px;
+}
+
+@media (max-width: 575.98px) {
+    .login-form .col-sm-4 {
+        text-align: left !important;
+    }
+
+        .container-logo {
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+    #login-form {
+        margin-left: 0px !important;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .container-logo {
+        display: flex !important;
+        justify-content: center !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .container-logo {
+        display: flex !important;
+        justify-content: center !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .container-logo {
+        display: flex !important;
+        justify-content: center !important;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399.98px) {}
+
+@media (min-width: 1400px) {}

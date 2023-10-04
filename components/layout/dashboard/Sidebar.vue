@@ -45,8 +45,14 @@ import { BaseEnable } from '~/assets/ts/template.ts'
       </li>
     </ul>
   </aside>
+  <div class="sperator" />
 </template>
 
-<style>
-@import url('~/assets/scss/main.scss')
+<style scoped lang="scss">
+@import url('~/assets/scss/main.scss');
+
+  .sperator{
+    height: 100%;
+    width: 2px;
+  }
 </style>

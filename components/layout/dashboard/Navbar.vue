@@ -6,13 +6,14 @@ clearChilds()
 </script>
 
 <template>
-  <header id="header" class="header pt-3 pb-3 fixed-top d-flex align-items-center border">
+  <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between" :style="{ marginLeft: BaseEnable.margin_left_header }">
       <a href="./home" class="logo d-flex align-items-center">
-        <img src="~/assets/images/logo.png" style="width: 180px;">
+        <img src="~/assets/images/logo.png">
       </a>
       <font-awesome-icon :icon="['fas', 'bars']" class="toggle-sidebar-btn" @click="onClick" />
     </div><!-- End Logo -->
+
     <div class="pagetitle pt-1 ps-5 mb-0">
       <h5 class="mb-0">
         Phòng khám đa khoa Medicare
@@ -28,6 +29,7 @@ clearChilds()
         </ol>
       </nav>
     </div>
+
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
         <li class="nav-item dropdown pe-3">
