@@ -3,7 +3,10 @@ export default defineNuxtConfig({
   ssr: false,
   devtools: { enabled: true },
   modules: ['nuxt-icon', '@pinia/nuxt', '@nuxtjs/tailwindcss', '@vueuse/nuxt'],
-  css: ['~/assets/scss/main.scss'],
+  css: [
+    '@fortawesome/fontawesome-svg-core/styles.css',
+    'bootstrap/dist/css/bootstrap.css',
+  ],
   pinia: {
     autoImports: [
       'defineStore',

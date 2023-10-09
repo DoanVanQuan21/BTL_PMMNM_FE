@@ -1,81 +1,134 @@
 <script setup lang="ts">
+import { auth, errMessages, sologon } from '~/assets/ts/auth'
+
 definePageMeta({
-  layout: 'blank',
+  layout: 'auth',
 })
-
+auth.title = 'Đăng nhập'
 const authStore = useAuthStore()
-
 const userCredentials = reactive({
   username: '',
   password: '',
 })
-
-const isInvalidLoginForm = computed(
-  () => !userCredentials.username || !userCredentials.password,
+const isValidUsername = computed(
+  () => !userCredentials.username,
 )
-
-async function handleLogin() {
-  if (isInvalidLoginForm.value)
+const isValidPassword = computed(
+  () => !userCredentials.password,
+)
+function validUsername() {
+  if (isValidUsername.value) {
+    errMessages.content = ''
+    errMessages.textColor = 'red'
+    errMessages.errorUsername = 'Tên đăng nhập không được để trống!'
     return
-
-  await authStore.login(userCredentials)
+  }
+  const regx = /[a-zA-Z]/
+  if (!regx.test(userCredentials.username)) {
+    errMessages.content = ''
+    errMessages.textColor = 'red'
+    errMessages.errorUsername = 'Tên đăng nhập phải bắt đầu bằng ký tự!'
+    return false
+  }
+  const regex = /^[a-zA-Z0-9]{7,}$/
+  if (!regex.test(userCredentials.username)) {
+    errMessages.content = ''
+    errMessages.textColor = 'red'
+    errMessages.errorUsername = 'Tên đăng nhập phải có độ dài >= 6'
+    return false
+  }
+  errMessages.content = sologon
+  errMessages.textColor = 'white'
+  errMessages.errorUsername = ''
+  return true
+}
+function validPassword() {
+  if (isValidPassword.value) {
+    errMessages.textColor = 'red'
+    errMessages.errorPassword = 'Mật khẩu không được để trống!'
+    return false
+  }
+  const regex = /^[a-zA-Z0-9]{7,}$/
+  if (!regex.test(userCredentials.password)) {
+    errMessages.textColor = 'red'
+    errMessages.errorPassword = 'Mật khẩu phải có độ dài >= 6'
+    return false
+  }
+  errMessages.textColor = 'white'
+  errMessages.errorPassword = ''
+  return true
+}
+function handleLogin() {
+  // if (validUsername() || validPassword())
+  //   return
+  // // eslint-disable-next-line no-alert
+  // alert('Đăng nhập thành công')
+  // await authStore.login(userCredentials)
+  navigateTo('./edit-user')
 }
 </script>
 
 <template>
-  <div class="login-page">
-    <form class="login-form">
-      <h2 class="title">
-        HIT CLUB
-      </h2>
-      <div class="form-item">
-        <label for="username" class="label">Username</label>
-        <input id="username" v-model="userCredentials.username" class="input">
+  <div class="row">
+    <div id="loginForm" class="col-lg-12 ms-5">
+      <div class="login-form ">
+        <form>
+          <div class="row py-2">
+            <div class="col-lg-12">
+              <div class="row">
+                <label for="inputName" class="col-sm-4 form-label text-start fw-semibold"><font-awesome-icon :icon="['fas', 'user']" /> Tên đăng nhập</label>
+              </div>
+              <div class="row">
+                <div class="col-sm-10">
+                  <input v-model="userCredentials.username" type="text" class="form-control rounded-pill border border-1 border-dark" name="username" aria-describedby="nameHelp" placeholder="Nhập tên tài khoản" @keyup="validUsername">
+                  <div class="form-text">
+                    {{ errMessages.content }}
+                  </div>
+                  <div :style="{ color: errMessages.textColor }">
+                    {{ errMessages.errorUsername }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row py-2">
+            <div class="col-lg-12">
+              <div class="row">
+                <label for="inputPass" class="col-sm-4 form-label text-start fw-semibold"><font-awesome-icon :icon="['fas', 'key']" /> Mật khẩu</label>
+              </div>
+              <div class="row">
+                <div class="col-sm-10">
+                  <input v-model="userCredentials.password" type="password" class="form-control rounded-pill border border-dark" name="password" placeholder="Nhập mật khẩu" @keyup="validPassword">
+                  <div :style="{ color: errMessages.textColor }">
+                    {{ errMessages.errorPassword }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row py-2">
+            <div class="col-sm-6 text-start">
+              <input id="chkSave" type="checkbox" class="form-check-input">
+              <label class=" form-check-label " for="chkSave">Nhớ tài khoản?</label>
+            </div>
+            <div class="col-sm-4 offset-sm-1 text-start">
+              <a href="./forgot-password" class="text-decoration-none">
+                <font-awesome-icon :icon="['fas', 'unlock']" /> Quên mật khẩu?</a>
+            </div>
+          </div>
+          <div class="row py-2">
+            <div class=" col-lg-10 text-end">
+              <button type="button" class="btn-login btn btn-primary" @click="handleLogin">
+                Đăng nhập <font-awesome-icon :icon="['fas', 'arrow-right-to-bracket']" />
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="form-item">
-        <label for="password" class="label">Password</label>
-        <input
-          id="password"
-          v-model="userCredentials.password"
-          type="password"
-          class="input"
-        >
-      </div>
-      <div class="form-item">
-        <button type="button" class="login-button" @click="handleLogin">
-          Submit
-        </button>
-      </div>
-    </form>
+    </div>
   </div>
 </template>
 
-<style scoped lang="scss">
-.login-page {
-  @apply w-full min-h-[100vh] flex justify-center items-center gap-[5%];
-
-  > .login-form {
-    @apply flex flex-col justify-center gap-4 w-[400px] bg-white p-4;
-  }
-
-  > .login-form > .form-item {
-    @apply mb-4;
-  }
-
-  > .login-form > .form-item > .label {
-    @apply block mb-2 text-sm font-medium text-gray-900;
-  }
-
-  > .login-form > .form-item > .input {
-    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-primary-500;
-  }
-
-  > .login-form > .form-item > .login-button {
-    @apply text-white bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-100 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center;
-  }
-
-  > .login-form > .title {
-    @apply text-primary-500 text-5xl font-bold text-center;
-  }
-}
+  <style scoped lang="scss">
+  @import url('~/assets/scss/auth.scss');
 </style>

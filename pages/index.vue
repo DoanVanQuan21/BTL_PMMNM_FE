@@ -1,5 +1,5 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: () => navigateTo('dashboard'),
+  middleware: () => navigateTo('login'),
 })
 </script>

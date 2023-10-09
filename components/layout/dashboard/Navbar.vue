@@ -1,122 +1,98 @@
 <script setup lang="ts">
-const emit = defineEmits(['logout'])
+import { BaseEnable, onClick } from '~/assets/ts/template.ts'
+import { BaseTitleDisplay, clearChilds } from '~/assets/ts/BaseWebApplication'
 
-const authStore = useAuthStore()
-const { user } = storeToRefs(authStore)
-
-const {
-  isVisible,
-  openModal,
-  closeModal,
-} = useModal()
-
-const userCardRef = ref()
-onClickOutside(userCardRef, closeModal)
+clearChilds()
 </script>
 
 <template>
-  <nav class="navbar">
-    <div class="content-wrapper">
-      <div class="brand">
-        <NuxtLink href="https://hithaui.com" class="app-info">
-          <img
-            src="~/assets/images/logoHIT.png"
-            class="logo"
-            alt="HIT CLUB Logo"
-          >
-        </NuxtLink>
-        <h1 class="title">
-          HIT CLUB
-        </h1>
-      </div>
-      <div ref="userCardRef" class="user-card relative">
-        <button type="button" class="avatar-button" @click="openModal">
-          <img
-            v-if="user?.avatar"
-            class="w-10 h-10 rounded-full"
-            :src="user.avatar"
-            alt="user photo"
-          >
-          <div v-else class="default-avatar">
-            {{ user?.name?.[0].toUpperCase() }}
-          </div>
-        </button>
-        <div v-if="isVisible" class="dropdown-user">
-          <div class="info">
-            <span class="name">{{ user?.name || user?.studentCode }}</span>
-            <span class="email">{{ user?.email }}</span>
-          </div>
-          <ul class="menu">
-            <li class="menu-item">
-              <NuxtLink
-                to="/dashboard/profile"
-                class="profile"
-                @click="closeModal"
-              >
-                Profile
-              </NuxtLink>
-            </li>
-            <li class="menu-item">
-              <NuxtLink to="/login" class="sign-out" @click="emit('logout')">
-                Sign out
-              </NuxtLink>
-            </li>
-          </ul>
-        </div>
-      </div>
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between" :style="{ marginLeft: BaseEnable.margin_left_header }">
+      <a href="./home" class="logo d-flex align-items-center">
+        <img src="~/assets/images/logo.png">
+      </a>
+      <font-awesome-icon :icon="['fas', 'bars']" class="toggle-sidebar-btn" @click="onClick" />
+    </div><!-- End Logo -->
+
+    <div class="pagetitle pt-1 ps-5 mb-0">
+      <h5 class="mb-0">
+        Phòng khám đa khoa Medicare
+      </h5>
+      <nav>
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item ms-0">
+            <a href="./home">{{ BaseTitleDisplay.parent }}</a>
+          </li>
+          <li v-for="(child, index) in BaseTitleDisplay.childs" :key="index" class="breadcrumb-item">
+            {{ child }}
+          </li>
+        </ol>
+      </nav>
     </div>
-  </nav>
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item dropdown pe-3">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <span class="d-none d-md-block dropdown-toggle ps-2">Đoàn Văn Quân</span>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>Đoàn Văn Quân</h6>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <font-awesome-icon :icon="['far', 'user']" />
+                <span>Thông tin cá nhân</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <font-awesome-icon :icon="['far', 'pen-to-square']" />
+                <span>Đổi mật khẩu</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <font-awesome-icon :icon="['fas', 'right-to-bracket']" />
+                <span>Đăng xuất</span>
+              </a>
+            </li>
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+      </ul>
+    </nav><!-- End Icons Navigation -->
+  </header>
 </template>
 
-<style lang="scss" scoped>
-.navbar {
-  @apply fixed top-0 z-50 w-full bg-white border-b border-gray-200;
+<style>
+@import url('~/assets/scss/main.scss');
 
-  > .content-wrapper {
-    @apply px-3 py-3 lg:px-4 lg:pl-3 flex items-center justify-between;
+.pagetitle {
+    margin-bottom: 10px;
+}
 
-    > .brand,
-    > .user-card {
-      @apply flex items-center relative;
-    }
-
-    > .brand > .app-info {
-      > .logo {
-        @apply h-12 mr-3 ml-2;
-      }
-    }
-
-    > .brand > .title {
-      @apply self-center text-3xl font-extrabold whitespace-nowrap text-primary-500;
-    }
-
-    > .user-card > .body > .avatar-button {
-      @apply flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300;
-
-      > .default-avatar {
-        @apply w-10 h-10 rounded-full bg-primary-500 flex justify-center items-center;
-      }
-    }
-
-    > .user-card > .dropdown-user {
-      @apply absolute top-full right-[0%] z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow;
-    }
-
-    > .user-card > .dropdown-user > .info {
-      @apply px-4 py-3;
-    }
-
-    > .user-card > .dropdown-user > .info > .name {
-      @apply block text-sm text-gray-900;
-    }
-
-    > .user-card > .dropdown-user > .info > .email {
-      @apply text-sm font-medium text-gray-900 truncate;
-    }
-
-    > .user-card > .dropdown-user > .menu > .menu-item > * {
-      @apply block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100;
-    }
-  }
+.pagetitle h1 {
+    font-size: 24px;
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #012970;
 }
 </style>
