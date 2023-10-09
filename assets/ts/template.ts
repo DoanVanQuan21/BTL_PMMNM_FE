@@ -5,6 +5,7 @@ export const BaseEnable = reactive({
   width: '300px',
   isEnabled: false,
   isHidden: false,
+  active: 'collapsed',
 })
 export async function onClick() {
   if (!BaseEnable.isEnabled) {

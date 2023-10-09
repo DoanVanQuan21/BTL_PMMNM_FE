@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { ActivePages } from '~/assets/ts/BaseWebApplication'
+
 definePageMeta({
   layout: 'dashboard',
 })
+ActivePages.OverviewPage = ''
 </script>
 
 <template>

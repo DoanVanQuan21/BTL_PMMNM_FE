@@ -64,7 +64,7 @@ function handleLogin() {
   // // eslint-disable-next-line no-alert
   // alert('Đăng nhập thành công')
   // await authStore.login(userCredentials)
-  navigateTo('./edit-user')
+  navigateTo('./home')
 }
 </script>
 
