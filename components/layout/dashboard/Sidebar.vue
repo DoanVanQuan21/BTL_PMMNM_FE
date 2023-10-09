@@ -6,7 +6,7 @@ import { BaseEnable } from '~/assets/ts/template.ts'
   <aside id="sidebar" class="sidebar" :style="{ width: BaseEnable.width }">
     <ul id="sidebar-nav" class="sidebar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="./home">
+        <a class="nav-link collapsed" href="./home">
           <div>
             <font-awesome-icon :icon="['fas', 'chart-pie']" class="fs-5" /> <span :hidden="BaseEnable.isHidden">Tổng quan</span>
           </div>
@@ -14,9 +14,17 @@ import { BaseEnable } from '~/assets/ts/template.ts'
       </li>
 
       <li class="nav-item">
-        <a class="nav-link " href="#">
+        <a class="nav-link collapsed" href="#">
           <div>
             <font-awesome-icon :icon="['fas', 'calendar-days']" class="fs-5" /> <span :hidden="BaseEnable.isHidden"> Lịch hẹn</span>
+          </div>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <div>
+            <font-awesome-icon :icon="['fas', 'calendar-days']" class="fs-5" /> <span :hidden="BaseEnable.isHidden"> Ca khám</span>
           </div>
         </a>
       </li>
