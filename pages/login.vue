@@ -112,7 +112,7 @@ function handleLogin() {
               <label class=" form-check-label " for="chkSave">Nhớ tài khoản?</label>
             </div>
             <div class="col-sm-4 offset-sm-1 text-start">
-              <a href="./forgot_password" class="text-decoration-none">
+              <a href="./forgot-password" class="text-decoration-none">
                 <font-awesome-icon :icon="['fas', 'unlock']" /> Quên mật khẩu?</a>
             </div>
           </div>
