@@ -29,7 +29,7 @@ function validPassword() {
   return true
 }
 async function handleReset() {
-  return navigateTo('./authentication_account')
+  return navigateTo('./authentication-account')
 }
 </script>
 

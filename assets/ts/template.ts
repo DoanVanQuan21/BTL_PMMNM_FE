@@ -1,24 +1,28 @@
 export const BaseEnable = reactive({
   margin_left_header: '0px',
   margin_left: '300px',
-  width: '0px',
+  left: '0px',
+  width: '300px',
   isEnabled: false,
+  isHidden: false,
 })
-export function onClick() {
+export async function onClick() {
   if (!BaseEnable.isEnabled) {
-    // eslint-disable-next-line no-alert
-    alert(window.innerWidth)
     BaseEnable.isEnabled = true
-    BaseEnable.width = '-300px'
-    BaseEnable.margin_left = '0px'
-    BaseEnable.margin_left_header = '-300px'
+    BaseEnable.margin_left = '90px'
+    BaseEnable.margin_left_header = '-280px'
+    BaseEnable.width = '93px'
+    BaseEnable.isHidden = true
   }
   else {
-    // eslint-disable-next-line no-alert
-    alert(window.innerWidth)
     BaseEnable.isEnabled = false
-    BaseEnable.width = '0px'
     BaseEnable.margin_left = '300px'
     BaseEnable.margin_left_header = '0px'
+    BaseEnable.width = '300px'
+    await delay(110)
+    BaseEnable.isHidden = false
   }
+}
+async function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }

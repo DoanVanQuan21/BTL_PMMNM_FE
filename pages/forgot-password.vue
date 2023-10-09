@@ -9,7 +9,7 @@ const userCredentials = reactive({
   email: '',
 })
 async function send() {
-  return navigateTo('/reset_password')
+  return navigateTo('/reset-password')
 }
 </script>
 
