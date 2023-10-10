@@ -5,6 +5,23 @@ const { getUser, logout } = useAuthStore()
 await getUser()
 </script>
 
+<script lang="ts">
+export default {
+  mounted() {
+    this.$nextTick(() => {
+      this.onResize()
+    })
+    window.addEventListener('resize', this.onResize)
+  },
+  methods: {
+    onResize() {
+      // eslint-disable-next-line no-console
+      console.log(`width = ${window.innerWidth}`)
+    },
+  },
+}
+</script>
+
 <template>
   <div class="dashboard-layout">
     <LayoutDashboardNavbar @logout="logout" />

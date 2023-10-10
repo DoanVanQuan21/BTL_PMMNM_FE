@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+body {
+    background: #fffffe;
+    color: #555;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+}
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -191,7 +198,10 @@
 
 @media (max-width: 1199px) {
     .sidebar {
-        left: -300px;
+        width: 93px !important;
+    }
+    #main{
+        margin-left: 93px !important;
     }
 }
 
@@ -212,25 +222,6 @@
         margin-left: 300px;
     }
 }
-
-@media (max-width: 1199px) {
-    .toggle-sidebar .sidebar {
-        left: 0;
-    }
-}
-
-@media (min-width: 1200px) {
-
-    .toggle-sidebar #main,
-    .toggle-sidebar #footer {
-        margin-left: 0;
-    }
-
-    .toggle-sidebar .sidebar {
-        left: -300px;
-    }
-}
-
 .sidebar-nav {
     padding: 0;
     margin: 0;

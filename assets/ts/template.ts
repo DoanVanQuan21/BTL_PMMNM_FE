@@ -8,10 +8,14 @@ export const BaseEnable = reactive({
   active: 'collapsed',
 })
 export async function onClick() {
+  const width = window.innerWidth
   if (!BaseEnable.isEnabled) {
     BaseEnable.isEnabled = true
     BaseEnable.margin_left = '90px'
-    BaseEnable.margin_left_header = '-280px'
+    if (width >= 1199)
+      BaseEnable.margin_left_header = '-280px'
+    else
+      BaseEnable.margin_left_header = '-93px'
     BaseEnable.width = '93px'
     BaseEnable.isHidden = true
   }
@@ -20,7 +24,7 @@ export async function onClick() {
     BaseEnable.margin_left = '300px'
     BaseEnable.margin_left_header = '0px'
     BaseEnable.width = '300px'
-    await delay(110)
+    await delay(120)
     BaseEnable.isHidden = false
   }
 }

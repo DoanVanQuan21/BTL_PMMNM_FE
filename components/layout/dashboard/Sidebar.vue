@@ -66,4 +66,11 @@ BaseEnable.active = 'collapsed'
     height: 100%;
     width: 2px;
   }
+  @media (max-width: 1199px) {
+    span{
+      visibility: hidden;
+      overflow: hidden;
+      display: none;
+    }
+}
 </style>

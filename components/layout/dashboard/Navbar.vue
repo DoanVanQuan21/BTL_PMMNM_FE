@@ -2,6 +2,7 @@
 import { BaseEnable, onClick } from '~/assets/ts/template.ts'
 import { BaseTitleDisplay, clearChilds } from '~/assets/ts/BaseWebApplication'
 
+BaseTitleDisplay.parent = 'Trang chủ'
 clearChilds()
 </script>
 
