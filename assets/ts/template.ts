@@ -1,28 +1,31 @@
 export const BaseEnable = reactive({
-  margin_left_header: '0px',
-  margin_left: '300px',
+  header_margin_left: '280px',
+  main_margin_left: '300px',
   left: '0px',
-  width: '300px',
+  sidebar_width: '300px',
   isEnabled: false,
   isHidden: false,
   active: 'collapsed',
 })
 export async function onClick() {
+  const width = window.innerWidth
   if (!BaseEnable.isEnabled) {
     BaseEnable.isEnabled = true
-    BaseEnable.margin_left = '90px'
-    BaseEnable.margin_left_header = '-280px'
-    BaseEnable.width = '93px'
+    BaseEnable.main_margin_left = '90px'
+    BaseEnable.header_margin_left = '46px'
+    BaseEnable.sidebar_width = '93px'
     BaseEnable.isHidden = true
+    return
   }
-  else {
-    BaseEnable.isEnabled = false
-    BaseEnable.margin_left = '300px'
-    BaseEnable.margin_left_header = '0px'
-    BaseEnable.width = '300px'
-    await delay(110)
-    BaseEnable.isHidden = false
-  }
+  BaseEnable.isEnabled = false
+  BaseEnable.main_margin_left = '300px'
+  BaseEnable.header_margin_left = '280px'
+  BaseEnable.sidebar_width = '300px'
+  await delay(120)
+  BaseEnable.isHidden = false
+}
+export async function onResize() {
+  const width = window.innerWidth
 }
 async function delay(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))

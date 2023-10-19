@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { BaseTitleDisplay, clearChilds } from 'assets/ts/BaseWebApplication'
+import { BaseTitleDisplay } from 'assets/ts/BaseWebApplication'
 
 definePageMeta({
   layout: 'dashboard',
 })
-clearChilds()
-BaseTitleDisplay.parent = 'Trang chủ'
 BaseTitleDisplay.childs.push('Cài đặt tài khoản')
 </script>
 

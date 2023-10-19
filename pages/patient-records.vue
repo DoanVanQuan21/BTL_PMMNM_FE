@@ -1,12 +1,22 @@
 <script setup lang="ts">
 import { Patient } from '~/assets/ts/BaseClasses'
-import { ActivePages } from '~/assets/ts/BaseWebApplication'
+import { ActivePages, BaseTitleDisplay } from '~/assets/ts/BaseWebApplication'
 
 definePageMeta({
   layout: 'dashboard',
 })
 const patients = Patient.getAllPatient()
 ActivePages.PRPage = ''
+const CheckBox = reactive({
+  isCheckAll: false,
+})
+function clickCheckAll() {
+  if (CheckBox.isCheckAll)
+    CheckBox.isCheckAll = false
+  else
+    CheckBox.isCheckAll = true
+}
+BaseTitleDisplay.childs.push('Hồ sơ bệnh nhân')
 </script>
 
 <template>
@@ -15,22 +25,22 @@ ActivePages.PRPage = ''
       <div class="card-body">
         <form class="patient-records">
           <div class="row mt-2 text-center">
-            <div class="col-lg-6 text-end">
+            <div class="col-lg-4 text-end">
               <input id="fullname" type="search" name="fullname" class="form-control" placeholder="Tìm kiếm mã bệnh nhân, tên bệnh nhân">
             </div>
             <div class="col-lg-3 text-end" />
+            <div class="col-lg-2 text-end" />
             <div class="col-lg-3 text-end">
               <button type="button" class="btn btn-primary">
                 Thêm hồ sơ bệnh nhân
               </button>
             </div>
           </div>
-          <div class="row" />
-          <div class="row">
+          <div class="row mt-4">
             <table>
               <tr>
                 <th>
-                  <input type="checkbox" name="" class="form-check-input">
+                  <input id="checkAlls" type="checkbox" name="checkAll" class="form-check-input" @click="clickCheckAll">
                 </th>
                 <th>STT</th>
                 <th>Số BHYT</th>
@@ -42,7 +52,7 @@ ActivePages.PRPage = ''
                 <th>Trạng thái</th>
               </tr>
               <tr v-for="(patient, index) in patients" :key="index">
-                <td><input id="ckb" type="checkbox" name="ckb" class="form-check-input"></td>
+                <td><input id="ckb" type="checkbox" name="ckb" class="form-check-input" :checked="CheckBox.isCheckAll"></td>
                 <td>{{ index }}</td>
                 <td>{{ patient.healthInsuranceNumber }}</td>
                 <td>{{ patient.fullname }}</td>
@@ -51,7 +61,8 @@ ActivePages.PRPage = ''
                 <td>{{ patient.gender }}</td>
                 <td>{{ patient.address }}</td>
                 <td>
-                  Xóa, sửa
+                  <button type="submit" class="btn btn-success me-1">Sửa</button>
+                  <button type="submit" class="btn btn-danger">Xóa</button>
                 </td>
               </tr>
             </table>
@@ -64,6 +75,6 @@ ActivePages.PRPage = ''
 
 <style lang="scss">
 td{
-    padding-top: 20px;
+  padding-top: 20px;
 }
 </style>
