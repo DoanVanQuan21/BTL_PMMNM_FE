@@ -8,9 +8,10 @@ clearChilds()
 
 <template>
   <header id="header" class="header fixed-top d-flex align-items-center">
-    <div class="d-flex align-items-center justify-content-between" :style="{ marginLeft: BaseEnable.margin_left_header }">
-      <a href="./home" class="logo d-flex align-items-center">
-        <img src="~/assets/images/logo.png">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="./home" class="logo d-flex align-items-center ms-3" :style="{ width: BaseEnable.header_margin_left }">
+        <img src="~/assets/images/logo.svg">
+        <img src="~/assets/images/medicare_logo.svg" :hidden="BaseEnable.isHidden">
       </a>
       <font-awesome-icon :icon="['fas', 'bars']" class="toggle-sidebar-btn" @click="onClick" />
     </div><!-- End Logo -->

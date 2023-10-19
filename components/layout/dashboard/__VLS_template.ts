@@ -45,8 +45,8 @@ const __VLS_5 = ({} as __VLS_IntrinsicElements)["div"];
 const __VLS_6 = __VLS_elementAsFunctionalComponent(__VLS_5);
 ({} as __VLS_IntrinsicElements).div;
 ({} as __VLS_IntrinsicElements).div;
-const __VLS_7 = __VLS_6({ ...{}, class: ("d-flex align-items-center justify-content-between"), style: (({ marginLeft: __VLS_ctx.BaseEnable.margin_left_header, transition: __VLS_ctx.all, 0.3: VLS_ctx.s })), }, ...__VLS_functionalComponentArgsRest(__VLS_6));
-({} as (props: __VLS_FunctionalComponentProps<typeof __VLS_5, typeof __VLS_7> & Record<string, unknown>) => void)({ ...{}, class: ("d-flex align-items-center justify-content-between"), style: (({ marginLeft: __VLS_ctx.BaseEnable.margin_left_header, transition: __VLS_ctx.all, 0.3: VLS_ctx.s })), });
+const __VLS_7 = __VLS_6({ ...{}, class: ("d-flex align-items-center justify-content-between"), style: (({ marginLeft: __VLS_ctx.BaseEnable.header_margin_left, transition: __VLS_ctx.all, 0.3: VLS_ctx.s })), }, ...__VLS_functionalComponentArgsRest(__VLS_6));
+({} as (props: __VLS_FunctionalComponentProps<typeof __VLS_5, typeof __VLS_7> & Record<string, unknown>) => void)({ ...{}, class: ("d-flex align-items-center justify-content-between"), style: (({ marginLeft: __VLS_ctx.BaseEnable.header_margin_left, transition: __VLS_ctx.all, 0.3: VLS_ctx.s })), });
 const __VLS_8 = __VLS_pickFunctionalComponentCtx(__VLS_5, __VLS_7)!;
 let __VLS_9!: __VLS_NormalizeEmits<typeof __VLS_8.emit>;
 {

@@ -26,7 +26,7 @@ export default {
   <div class="dashboard-layout">
     <LayoutDashboardNavbar @logout="logout" />
     <LayoutDashboardSidebar />
-    <main id="main" class="main" :style="{ marginLeft: BaseEnable.margin_left }">
+    <main id="main" class="main" :style="{ marginLeft: BaseEnable.main_margin_left }">
       <section class="section">
         <slot />
       </section>
