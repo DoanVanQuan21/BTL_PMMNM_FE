@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { auth } from '~/assets/ts/auth'
+</script>
+
 <template>
   <div class="auth-layout pt-2">
     <div class="container-lg">
@@ -7,13 +11,13 @@
             src="~/assets/images/background-login.png"
             class="img-fluid"
             style="height=100%;"
-          />
+          >
         </div>
         <div class="col-lg-6">
           <div class="row">
             <div class="col-lg-12">
               <div class="container-logo">
-                <img src="~/assets/images/logo.png" class="float-end logo" />
+                <img src="~/assets/images/logo.png" class="float-end logo">
               </div>
             </div>
           </div>
@@ -30,10 +34,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { auth } from "~/assets/ts/auth";
-</script>
 
 <style scoped lang="scss">
 @import url("~/assets/scss/auth.scss");

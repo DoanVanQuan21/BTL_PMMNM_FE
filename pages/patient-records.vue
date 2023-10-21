@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Patient } from '~/assets/ts/BaseClasses'
+import { Patient } from '~/models/Patient'
 import { ActivePages, BaseTitleDisplay } from '~/assets/ts/BaseWebApplication'
 
 definePageMeta({
@@ -61,8 +61,12 @@ BaseTitleDisplay.childs.push('Hồ sơ bệnh nhân')
                 <td>{{ patient.gender }}</td>
                 <td>{{ patient.address }}</td>
                 <td>
-                  <button type="submit" class="btn btn-success me-1">Sửa</button>
-                  <button type="submit" class="btn btn-danger">Xóa</button>
+                  <button type="submit" class="btn btn-success me-1">
+                    Sửa
+                  </button>
+                  <button type="submit" class="btn btn-danger">
+                    Xóa
+                  </button>
                 </td>
               </tr>
             </table>
