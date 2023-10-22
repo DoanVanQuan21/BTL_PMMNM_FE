@@ -1,3 +1,32 @@
+<script>
+import { auth } from '~/assets/ts/auth'
+import { TitlePage } from '@/constants/constants'
+import { UserManager } from '@/services/manager/UserManager'
+
+definePageMeta({
+  layout: 'auth',
+})
+
+export default {
+  data() {
+    return {
+      userManager: new UserManager(),
+      auth,
+    }
+  },
+  mounted() {
+    auth.title = TitlePage.REGISTER
+    auth.linkBackgroundImage = '~/assets/images/background-register.png'
+  },
+  methods: {
+    handlerRegister() {
+      // eslint-disable-next-line no-alert
+      alert(this.userManager.getUser().fullname)
+    },
+  },
+}
+</script>
+
 <template>
   <div class="row">
     <div id="login-form" class="col-lg-12 ms-5">
@@ -9,20 +38,19 @@
                 <label
                   for="fullname"
                   class="col-sm-4 form-label text-start fw-semibold mb-12"
-                  >Họ tên</label
-                >
+                >Họ tên</label>
               </div>
               <div class="row">
                 <div class="col-sm-10">
                   <input
                     id="fullname"
+                    v-model="userManager.getUser().fullname"
                     type="text"
                     class="form-control border-dark input-type-text"
                     name="fullname"
-                    v-bind="userCredentials.fullname"
                     aria-describedby="nameHelp"
                     placeholder="Nhập họ tên"
-                  />
+                  >
                   <div id="errFullname" />
                 </div>
               </div>
@@ -34,21 +62,19 @@
                 <label
                   for="username"
                   class="col-sm-4 form-label text-start fw-semibold mb-12"
-                  >Tên tài khoản</label
-                >
+                >Tên tài khoản</label>
               </div>
               <div class="row">
                 <div class="col-sm-10">
                   <input
                     id="username"
-                    v-model="userCredentials.username"
+                    v-model="userManager.getUser().username"
                     type="text"
                     class="form-control border-dark input-type-text"
                     name="username"
                     aria-describedby="nameHelp"
-                    onkeyup="checkValidLogin()"
                     placeholder="Nhập tên tài khoản"
-                  />
+                  >
                   <div id="errName" />
                 </div>
               </div>
@@ -60,20 +86,18 @@
                 <label
                   for="password"
                   class="col-sm-4 form-label text-start fw-semibold mb-12"
-                  >Mật khẩu</label
-                >
+                >Mật khẩu</label>
               </div>
               <div class="row">
                 <div class="col-sm-10">
                   <input
                     id="password"
-                    v-model="userCredentials.password"
+                    v-model="userManager.getUser().password"
                     type="password"
                     class="form-control border-dark input-type-text"
                     name="password"
-                    onkeyup="checkValidLogin()"
                     placeholder="Nhập mật khẩu"
-                  />
+                  >
                   <div id="errPass" />
                 </div>
               </div>
@@ -85,19 +109,18 @@
                 <label
                   for="ConfirmPassword"
                   class="col-sm-4 form-label text-start fw-semibold mb-12"
-                  >Xác nhận mật khẩu</label
-                >
+                >Xác nhận mật khẩu</label>
               </div>
               <div class="row">
                 <div class="col-sm-10">
                   <input
                     id="ConfirmPassword"
+                    v-model="userManager.getUser().confirmPassword"
                     type="password"
                     class="form-control border-dark input-type-text"
-                    name="userCredentials.confirmPassword"
-                    onkeyup="checkValidLogin()"
+                    name="confirmPassword"
                     placeholder="Xác nhận mật khẩu"
-                  />
+                  >
                   <div id="errPass" />
                 </div>
               </div>
@@ -109,8 +132,7 @@
                 <label
                   for="inputPermission"
                   class="col-sm-4 form-label text-start fw-semibold mb-12"
-                  >Chức vụ</label
-                >
+                >Chức vụ</label>
               </div>
               <div class="row">
                 <div class="col-sm-10">
@@ -120,7 +142,7 @@
                     class="form-control border-dark input-type-text"
                   >
                     <option
-                      v-for="(perm, index) in userCredentials.permission"
+                      v-for="(perm, index) in userManager.permission"
                       :key="index"
                       :value="perm"
                     >
@@ -133,7 +155,7 @@
           </div>
           <div class="row py-2">
             <div class="col-lg-10 text-end btn-create-account">
-              <button type="button" class="btn-login btn btn-primary">
+              <button type="button" class="btn-login btn btn-primary" @click="handlerRegister">
                 <i class="fa-solid fa-right-to-bracket" />Tạo tài khoản
               </button>
             </div>
@@ -143,24 +165,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { auth } from "~/assets/ts/auth";
-
-definePageMeta({
-  layout: "auth",
-});
-
-auth.title = "Tạo tài khoản";
-auth.linkBackgroundImage = "~/assets/images/background-register.png";
-const userCredentials = reactive({
-  fullname: "",
-  username: "",
-  password: "",
-  confirmPassword: "",
-  permission: ["Bác sĩ", "Y tá", "Lễ tân"],
-});
-</script>
 
 <style scoped lang="scss">
 @import url("~/assets/scss/auth.scss");

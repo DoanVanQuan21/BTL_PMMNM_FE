@@ -1,17 +1,9 @@
-export class Patient {
-  public healthInsuranceNumber: String
-  public fullname: String
-  public phone: String
-  public birthday: String
-  public gender: String
-  public address: String
-  public constructor(health: string, fullname: string, phone: string, birthday: string, gender: string, address: string) {
-    this.healthInsuranceNumber = health
-    this.fullname = fullname
-    this.phone = phone
-    this.birthday = birthday
-    this.gender = gender
-    this.address = address
+import { Patient } from '@/models/Patient'
+
+export class PatientManager {
+  private patient: Patient = new Patient()
+  constructor(patient: Patient) {
+    this.patient = patient
   }
 
   static getAllPatient() {
