@@ -155,7 +155,11 @@ export default {
           </div>
           <div class="row py-2">
             <div class="col-lg-10 text-end btn-create-account">
-              <button type="button" class="btn-login btn btn-primary" @click="handlerRegister">
+              <button
+                type="button"
+                class="btn-login btn btn-primary"
+                @click="handlerRegister"
+              >
                 <i class="fa-solid fa-right-to-bracket" />Tạo tài khoản
               </button>
             </div>

@@ -37,8 +37,11 @@ export default {
                 <label
                   for="email"
                   class="col-sm-4 form-label text-start fw-semibold mb-12"
-                ><font-awesome-icon class="mr-1" :icon="['fas', 'envelope']" /> Địa
-                  chỉ email</label>
+                ><font-awesome-icon
+                  class="mr-1"
+                  :icon="['fas', 'envelope']"
+                />
+                  Địa chỉ email</label>
               </div>
               <div class="row">
                 <div class="col-sm-10">
@@ -62,13 +65,20 @@ export default {
                 class="btn-login btn btn-primary"
                 @click="send"
               >
-                Gửi <font-awesome-icon class="ml-1" :icon="['fas', 'paper-plane']" />
+                Gửi
+                <font-awesome-icon
+                  class="ml-1"
+                  :icon="['fas', 'paper-plane']"
+                />
               </button>
             </div>
           </div>
           <div class="row py-2">
             <div class="col-lg-10 text-center text-info">
-              <a :href="RedirectPage.LOGIN" class="text-decoration-none go-back-home">Trở về trang đăng nhập</a>
+              <a
+                :href="RedirectPage.LOGIN"
+                class="text-decoration-none go-back-home"
+              >Trở về trang đăng nhập</a>
             </div>
           </div>
         </form>
