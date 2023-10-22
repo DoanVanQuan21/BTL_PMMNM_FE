@@ -1,12 +1,22 @@
-<script setup lang="ts">
+<script>
 import { auth } from '~/assets/ts/auth'
+
+export default {
+  data() {
+    return {
+      auth,
+    }
+  },
+}
 </script>
 
 <template>
   <div class="auth-layout pt-2">
     <div class="container-lg">
       <div class="row">
-        <div class="col-lg-6 background_login text-center mb-right-minus-70 d-flex justify-content-center align-items-center">
+        <div
+          class="col-lg-6 background_login text-center mb-right-minus-70 d-flex justify-content-center align-items-center"
+        >
           <img
             src="~/assets/images/background-login.png"
             class="img-fluid"
@@ -15,10 +25,9 @@ import { auth } from '~/assets/ts/auth'
         </div>
         <div class="col-lg-6">
           <div class="row">
-            <div class="col-lg-12">
-              <div class="container-logo">
-                <img src="~/assets/images/logo.png" class="float-end logo">
-              </div>
+            <div class="col-lg-12 d-flex flex-row mb-3 justify-content-end">
+              <img src="~/assets/images/logo.svg" class="logo" style="width: 60px;">
+              <img src="~/assets/images/medicare_logo.svg" class="logo ms-3" style="width: 150px;">
             </div>
           </div>
           <div class="row py-4">

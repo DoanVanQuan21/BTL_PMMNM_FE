@@ -1,7 +1,7 @@
 <script>
 import { auth, errMessages } from '~/assets/ts/auth'
 import { UserManager } from '@/services/manager/UserManager'
-import { TitlePage } from '@/constants/constants'
+import { RedirectPage, TitlePage } from '@/constants/constants'
 
 definePageMeta({
   layout: 'auth',
@@ -12,6 +12,7 @@ export default {
       userManager: new UserManager(),
       auth,
       errMessages,
+      RedirectPage,
     }
   },
   mounted() {
@@ -19,7 +20,7 @@ export default {
   },
   methods: {
     handleReset() {
-      return navigateTo('./authentication-account')
+      return navigateTo(this.RedirectPage.AUTH_ACCOUNT)
     },
   },
 }
@@ -96,14 +97,20 @@ export default {
                 class="btn-login btn btn-primary"
                 @click="handleReset"
               >
-                <font-awesome-icon class="mr-1" :icon="['fas', 'pen-to-square']" />
+                <font-awesome-icon
+                  class="mr-1"
+                  :icon="['fas', 'pen-to-square']"
+                />
                 Đổi mật khẩu
               </button>
             </div>
           </div>
           <div class="row py-2">
             <div class="col-lg-10 text-center text-info fs-5 mt-2">
-              <a href="./login" class="text-decoration-none go-back-home">Trở về trang đăng nhập</a>
+              <a
+                :href="RedirectPage.LOGIN"
+                class="text-decoration-none go-back-home"
+              >Trở về trang đăng nhập</a>
             </div>
           </div>
         </form>
