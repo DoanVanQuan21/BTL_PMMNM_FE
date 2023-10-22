@@ -1,7 +1,7 @@
 export const BaseEnable = reactive({
-  header_margin_left: '280px',
-  main_margin_left: '300px',
-  sidebar_width: '300px',
+  header_margin_left: '280px', // margin left of header
+  main_margin_left: '300px', // margin left of main content
+  sidebar_width: '300px', // width sidebar
   isEnabled: false,
   isHidden: false,
   active: 'collapsed',

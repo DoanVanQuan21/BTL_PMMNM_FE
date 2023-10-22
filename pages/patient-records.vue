@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Patient } from '~/models/Patient'
 import { ActivePages, BaseTitleDisplay } from '~/assets/ts/BaseWebApplication'
+import { PatientManager } from '@/services/manager/PatientManager'
 
 definePageMeta({
   layout: 'dashboard',
 })
-const patients = Patient.getAllPatient()
+const patients = PatientManager.getAllPatient()
 ActivePages.PRPage = ''
 const CheckBox = reactive({
   isCheckAll: false,

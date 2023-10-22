@@ -1,50 +1,27 @@
-<script setup lang="ts">
+<script>
 import { auth, errMessages } from '~/assets/ts/auth'
+import { UserManager } from '@/services/manager/UserManager'
+import { TitlePage } from '@/constants/constants'
 
 definePageMeta({
   layout: 'auth',
 })
-auth.title = 'Đổi mật khẩu'
-const userCredentials = reactive({
-  password: '',
-  confirmPassword: '',
-})
-const isValidPassword = computed(() => !userCredentials.password)
-function validPassword() {
-  if (isValidPassword.value) {
-    errMessages.textColor = 'red'
-    errMessages.errorPassword = 'Mật khẩu không được để trống!'
-    return false
-  }
-  const regex = /^[a-zA-Z0-9]{7,}$/
-  if (!regex.test(userCredentials.password)) {
-    errMessages.textColor = 'red'
-    errMessages.errorPassword = 'Mật khẩu phải có độ dài nhiều hơn 6'
-    return false
-  }
-  errMessages.textColor = 'white'
-  errMessages.errorPassword = ''
-  return true
-}
-
-function validConfirmPassword() {
-  if (isValidPassword.value) {
-    errMessages.textColor = 'red'
-    errMessages.errorConfirmPassword = 'Xác nhận khẩu không được để trống!'
-    return false
-  }
-  const regex = /^[a-zA-Z0-9]{7,}$/
-  if (!regex.test(userCredentials.password)) {
-    errMessages.textColor = 'red'
-    errMessages.errorConfirmPassword = 'Xác nhận khẩu phải có độ dài nhiều hơn 6'
-    return false
-  }
-  errMessages.textColor = 'white'
-  errMessages.errorConfirmPassword = ''
-  return true
-}
-async function handleReset() {
-  return navigateTo('./authentication-account')
+export default {
+  data() {
+    return {
+      userManager: new UserManager(),
+      auth,
+      errMessages,
+    }
+  },
+  mounted() {
+    auth.title = TitlePage.RESET_PASSWORD
+  },
+  methods: {
+    handleReset() {
+      return navigateTo('./authentication-account')
+    },
+  },
 }
 </script>
 
@@ -66,13 +43,13 @@ async function handleReset() {
                 <div class="col-sm-10">
                   <input
                     id="input-password"
-                    v-model="userCredentials.password"
+                    v-model="userManager.getUser().password"
                     type="password"
                     class="form-control rounded-pill border border-1 border-dark input-type-text"
                     name="password"
                     aria-describedby="nameHelp"
                     placeholder="Nhập mật khẩu mới"
-                    @keyup="validPassword"
+                    @keyup="userManager.validPassword"
                   >
 
                   <div :style="{ color: errMessages.textColor }">
@@ -98,12 +75,12 @@ async function handleReset() {
                 <div class="col-sm-10">
                   <input
                     id="input-confirm-password"
-                    v-model="userCredentials.confirmPassword"
+                    v-model="userManager.getUser().confirmPassword"
                     type="password"
                     class="form-control rounded-pill border border-dark input-type-text"
                     name="confirmPassword"
                     placeholder="Nhập mật khẩu"
-                    @keyup="validConfirmPassword"
+                    @keyup="userManager.validConfirmPassword"
                   >
                   <div :style="{ color: errMessages.textColor }">
                     {{ errMessages.errorConfirmPassword }}
