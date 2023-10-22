@@ -1,7 +1,7 @@
 <script>
 import { auth, errMessages } from '@/assets/ts/auth'
 import { UserManager } from '@/services/manager/UserManager'
-import { TitlePage } from '@/constants/constants'
+import { RedirectPage,TitlePage } from '@/constants/constants'
 
 definePageMeta({
   layout: 'auth',
@@ -12,6 +12,7 @@ export default {
       userManager: new UserManager(),
       auth,
       errMessages,
+      RedirectPage,
     }
   },
 
@@ -23,7 +24,7 @@ export default {
       // eslint-disable-next-line no-alert
       alert(`Đăng nhập thành công:${this.userManager.getUser().username}`)
       // Sử dụng this.$router.push để chuyển hướng đến trang mới
-      this.$router.push('/home')
+      this.$router.push(RedirectPage.HOME)
     },
   },
 }
@@ -116,7 +117,7 @@ export default {
             </div>
             <div class="col-sm-4 offset-sm-1 text-start">
               <a
-                href="./forgot-password"
+                :href="RedirectPage.FORGOT_PASSWORD"
                 class="text-decoration-none text-black hover-change-color"
               >Quên mật khẩu</a>
             </div>

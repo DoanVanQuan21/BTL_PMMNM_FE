@@ -1,6 +1,6 @@
 <script>
 import { auth } from '~/assets/ts/auth'
-import { TitlePage } from '@/constants/constants'
+import { RedirectPage, TitlePage } from '@/constants/constants'
 import { UserManager } from '@/services/manager/UserManager'
 
 definePageMeta({
@@ -12,15 +12,15 @@ export default {
     return {
       userManager: new UserManager(),
       auth,
+      RedirectPage,
     }
   },
   mounted() {
-    auth.title = TitlePage.AUTH_ACCOUNT
+    this.auth.title = TitlePage.FORGOT_PASSWORD
   },
   methods: {
     send() {
-      // eslint-disable-next-line no-alert
-      alert(this.userManager.getUser().email)
+      return navigateTo(this.RedirectPage.RESET_PASSWORD)
     },
   },
 }
@@ -68,7 +68,7 @@ export default {
           </div>
           <div class="row py-2">
             <div class="col-lg-10 text-center text-info">
-              <a href="./login" class="text-decoration-none go-back-home">Trở về trang đăng nhập</a>
+              <a :href="RedirectPage.LOGIN" class="text-decoration-none go-back-home">Trở về trang đăng nhập</a>
             </div>
           </div>
         </form>
@@ -77,55 +77,52 @@ export default {
   </div>
 </template>
 
-  <style scoped lang="scss">
-    @import url("~/assets/scss/auth.scss");
-    .logo {
-    width: 225px;
-    }
-    .login-title {
-    font-size: 1.2rem;
-    }
-    .btn-send {
-    width: 30%;
-    transition: width 2s;
-    }
-    .btn-send:hover {
-    width: 35%;
-    background-color: red;
-    color: white;
-    }
-    .background_login img {
-    width: 600px;
-    }
-    @media (max-width: 575.98px) {
-    .login-form .col-sm-4 {
-    text-align: left !important;
-    }
-    .logo {
-    text-align: center !important;
-    }
-    #login-form {
-    margin-left: 0px !important;
-    }
-    }
-    @media (min-width: 576px) and (max-width: 767.98px) {
-    .logo {
-    text-align: center !important;
-    }
-    }
-    @media (min-width: 768px) and (max-width: 991.98px) {
-    .logo {
-    text-align: center !important;
-    }
-    }
-    @media (min-width: 992px) and (max-width: 1199.98px) {
-    .logo {
-    text-align: center !important;
-    }
-    }
-    @media (min-width: 1200px) and (max-width: 1399.98px) {
-    }
+<style scoped lang="scss">
+@import url("~/assets/scss/auth.scss");
 
-    @media (min-width: 1400px) {
-    }
-  </style>
+.logo {
+  width: 225px;
+}
+.login-title {
+  font-size: 1.2rem;
+}
+.btn-send:hover {
+  width: 35%;
+  background-color: red;
+  color: white;
+}
+.background_login img {
+  width: 660px;
+}
+@media (max-width: 575.98px) {
+  .login-form .col-sm-4 {
+    text-align: left !important;
+  }
+  .logo {
+    text-align: center !important;
+  }
+  #login-form {
+    margin-left: 0px !important;
+  }
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .logo {
+    text-align: center !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .logo {
+    text-align: center !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .logo {
+    text-align: center !important;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+}
+
+@media (min-width: 1400px) {
+}
+</style>

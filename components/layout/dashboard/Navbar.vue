@@ -9,12 +9,24 @@ clearChilds()
 <template>
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
-      <a href="./home" class="logo d-flex align-items-center ms-3" :style="{ width: BaseEnable.header_margin_left }">
+      <a
+        href="./home"
+        class="logo d-flex align-items-center ms-3"
+        :style="{ width: BaseEnable.header_margin_left }"
+      >
         <img src="~/assets/images/logo.svg">
-        <img src="~/assets/images/medicare_logo.svg" :hidden="BaseEnable.isHidden">
+        <img
+          src="~/assets/images/medicare_logo.svg"
+          :hidden="BaseEnable.isHidden"
+        >
       </a>
-      <font-awesome-icon :icon="['fas', 'bars']" class="toggle-sidebar-btn" @click="onClick" />
-    </div><!-- End Logo -->
+      <font-awesome-icon
+        :icon="['fas', 'bars']"
+        class="toggle-sidebar-btn"
+        @click="onClick"
+      />
+    </div>
+    <!-- End Logo -->
 
     <div class="pagetitle pt-1 ps-5 mb-0">
       <h5 class="mb-0">
@@ -25,7 +37,11 @@ clearChilds()
           <li class="breadcrumb-item ms-0">
             <a href="./home">{{ BaseTitleDisplay.parent }}</a>
           </li>
-          <li v-for="(child, index) in BaseTitleDisplay.childs" :key="index" class="breadcrumb-item">
+          <li
+            v-for="(child, index) in BaseTitleDisplay.childs"
+            :key="index"
+            class="breadcrumb-item"
+          >
             {{ child }}
           </li>
         </ol>
@@ -35,11 +51,17 @@ clearChilds()
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
         <li class="nav-item dropdown pe-3">
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <a
+            class="nav-link nav-profile d-flex align-items-center pe-0"
+            href="#"
+            data-bs-toggle="dropdown"
+          >
             <span class="d-none d-md-block dropdown-toggle ps-2">Đoàn Văn Quân</span>
           </a>
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          <ul
+            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
+          >
             <li class="dropdown-header">
               <h6>Đoàn Văn Quân</h6>
             </li>
@@ -77,24 +99,27 @@ clearChilds()
                 <span>Đăng xuất</span>
               </a>
             </li>
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+          </ul>
+          <!-- End Profile Dropdown Items -->
+        </li>
+        <!-- End Profile Nav -->
       </ul>
-    </nav><!-- End Icons Navigation -->
+    </nav>
+    <!-- End Icons Navigation -->
   </header>
 </template>
 
 <style>
-@import url('~/assets/scss/main.scss');
+@import url("~/assets/scss/main.scss");
 
 .pagetitle {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .pagetitle h1 {
-    font-size: 24px;
-    margin-bottom: 0;
-    font-weight: 600;
-    color: #012970;
+  font-size: 24px;
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #012970;
 }
 </style>
