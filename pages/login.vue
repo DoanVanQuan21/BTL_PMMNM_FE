@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script>
 import { auth, errMessages } from '@/assets/ts/auth'
 import { UserManager } from '@/services/manager/UserManager'
 import { TitlePage } from '@/constants/constants'
@@ -6,14 +6,26 @@ import { TitlePage } from '@/constants/constants'
 definePageMeta({
   layout: 'auth',
 })
-auth.title = TitlePage.LOGIN_PAGE
-const userManager = new UserManager()
-function handleLogin() {
-  if (userManager.validUsername() || userManager.validPassword())
-    return
-  // eslint-disable-next-line no-alert
-  alert('Đăng nhập thành công')
-  navigateTo('./home')
+export default {
+  data() {
+    return {
+      userManager: new UserManager(),
+      auth,
+      errMessages,
+    }
+  },
+
+  mounted() {
+    this.auth.title = TitlePage.LOGIN_PAGE
+  },
+  methods: {
+    handleLogin() {
+      // eslint-disable-next-line no-alert
+      alert(`Đăng nhập thành công:${this.userManager.getUser().username}`)
+      // Sử dụng this.$router.push để chuyển hướng đến trang mới
+      this.$router.push('/home')
+    },
+  },
 }
 </script>
 
