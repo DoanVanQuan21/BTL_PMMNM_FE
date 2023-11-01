@@ -1,3 +1,5 @@
+import type { LoginResponse, User, UserCredentials } from '~/types'
+
 export const useAuthStore = defineStore('auth', () => {
   const { $api } = useNuxtApp()
 
@@ -5,7 +7,7 @@ export const useAuthStore = defineStore('auth', () => {
   const accessToken = useLocalStorage('accessToken', '')
 
   const login = async (userCredentials: UserCredentials) => {
-    const response = await $api<LoginResponse>('/api/v1/auth/sign-in', {
+    const response = await $api<LoginResponse>('/auth/sign-in', {
       method: 'POST',
       body: userCredentials,
     })
@@ -13,14 +15,14 @@ export const useAuthStore = defineStore('auth', () => {
     if (response) {
       accessToken.value = response.accessToken
       useNotification({
-        message: 'Welcome to HIT CLUB!',
+        message: 'Welcome to Medicare!',
       })
       return navigateTo('/dashboard')
     }
   }
 
   const getUser = async () => {
-    const authUser = await $api<User>('/api/v1/auth/me', {
+    const authUser = await $api<User>('/auth/me', {
       headers: {
         Authorization: `Bearer ${accessToken.value}`,
       },

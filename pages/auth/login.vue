@@ -1,35 +1,3 @@
-<script>
-import { auth, errMessages } from '@/assets/ts/auth'
-import { UserManager } from '@/services/manager/UserManager'
-import { RedirectPage,TitlePage } from '@/constants/constants'
-
-definePageMeta({
-  layout: 'auth',
-})
-export default {
-  data() {
-    return {
-      userManager: new UserManager(),
-      auth,
-      errMessages,
-      RedirectPage,
-    }
-  },
-
-  mounted() {
-    this.auth.title = TitlePage.LOGIN_PAGE
-  },
-  methods: {
-    handleLogin() {
-      // eslint-disable-next-line no-alert
-      alert(`Đăng nhập thành công:${this.userManager.getUser().username}`)
-      // Sử dụng this.$router.push để chuyển hướng đến trang mới
-      this.$router.push(RedirectPage.HOME)
-    },
-  },
-}
-</script>
-
 <template>
   <div class="row">
     <div id="loginForm" class="col-lg-12 ms-5">
@@ -43,7 +11,8 @@ export default {
                   class="col-sm-4 form-label text-start fw-semibold mb-12"
                 >
                   <font-awesome-icon class="mr-1" :icon="['fas', 'user']" /> Tên
-                  đăng nhập</label>
+                  đăng nhập</label
+                >
               </div>
               <div class="row">
                 <div class="col-sm-10">
@@ -56,7 +25,7 @@ export default {
                     aria-describedby="nameHelp"
                     placeholder="Nhập tên tài khoản"
                     @keyup="userManager.validUsername()"
-                  >
+                  />
                   <div class="form-text">
                     {{ errMessages.content }}
                   </div>
@@ -73,8 +42,9 @@ export default {
                 <label
                   for="inputPass"
                   class="col-sm-4 form-label text-start fw-semibold mb-12"
-                ><font-awesome-icon class="mr-1" :icon="['fas', 'key']" /> Mật
-                  khẩu</label>
+                  ><font-awesome-icon class="mr-1" :icon="['fas', 'key']" /> Mật
+                  khẩu</label
+                >
               </div>
               <div class="row">
                 <div class="col-sm-10 input-type-password">
@@ -86,11 +56,13 @@ export default {
                     name="password"
                     placeholder="Nhập mật khẩu"
                     @keyup="userManager.validPassword()"
-                  >
+                  />
                   <div class="input-group-append">
                     <span
                       class="icon-show-hide-password"
-                      @click="userManager.showPassword = !userManager.showPassword"
+                      @click="
+                        userManager.showPassword = !userManager.showPassword
+                      "
                     >
                       <font-awesome-icon
                         v-if="!userManager.showPassword"
@@ -109,17 +81,19 @@ export default {
           </div>
           <div class="row py-2">
             <div class="col-sm-6 text-start">
-              <input id="chkSave" type="checkbox" class="form-check-input">
+              <input id="chkSave" type="checkbox" class="form-check-input" />
               <label
                 class="form-check-label ml-2 hover-cursor-pointer hover-change-color"
                 for="chkSave"
-              >Nhớ tôi</label>
+                >Nhớ tôi</label
+              >
             </div>
             <div class="col-sm-4 offset-sm-1 text-start">
-              <a
-                :href="RedirectPage.FORGOT_PASSWORD"
+              <NuxtLink
+                :to="RedirectPage.FORGOT_PASSWORD"
                 class="text-decoration-none text-black hover-change-color"
-              >Quên mật khẩu</a>
+                >Quên mật khẩu</NuxtLink
+              >
             </div>
           </div>
           <div class="row py-2">
@@ -138,6 +112,69 @@ export default {
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { auth, errMessages } from "@/assets/ts/auth";
+import { UserManager } from "@/services/manager/UserManager";
+import { RedirectPage, ResponseStatus, TitlePage } from "@/constants/constants";
+
+definePageMeta({
+  layout: "auth",
+});
+
+export default {
+  data() {
+    return {
+      userManager: new UserManager(),
+      auth,
+      errMessages,
+      RedirectPage,
+    };
+  },
+  mounted() {
+    this.auth.title = TitlePage.LOGIN_PAGE;
+  },
+  methods: {
+    async handleLogin() {
+      try {
+        let dataLogin = {
+          username: this.userManager.getUser().username,
+          password: this.userManager.getUser().password,
+        };
+        
+        if (!dataLogin.username) this.userManager.validUsername();
+        if (!dataLogin.password) this.userManager.validPassword();
+
+        if (
+          !this.errMessages.errorUsername &&
+          !this.errMessages.errorPassword
+        ) {
+          const response = await this.$api("auth/login", {
+            method: "POST",
+            body: JSON.stringify(dataLogin),
+          });
+
+          if (response?.status == ResponseStatus.HTTP_OK) {
+            this.$toastify.success("Login successful");
+            const data = response.results;
+            let token = data.token.accessToken;
+            let userInformation = data.token.user;
+
+            localStorage.setItem("token", token);
+            localStorage.setItem("userInformation", userInformation);
+
+            this.$router.push(RedirectPage.HOME);
+          } else if (response?.status == ResponseStatus.HTTP_UNAUTHORIZED) {
+            this.$toastify.error("Username or password is incorrect");
+          }
+        }
+      } catch (error) {
+        console.error("Error during login:" + error);
+      }
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 @import url("~/assets/scss/auth.scss");

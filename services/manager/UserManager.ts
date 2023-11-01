@@ -21,7 +21,7 @@ export class UserManager {
   }
 
   public validUsername() {
-    if (this.user.username == null) {
+    if (!this.user.username) {
       errMessages.content = ''
       errMessages.textColor = 'red'
       errMessages.errorUsername = 'Tên đăng nhập không được để trống!'
@@ -37,11 +37,11 @@ export class UserManager {
       return false
     }
 
-    const regex2 = /^[a-zA-Z0-9]{7,}$/
+    const regex2 = /^[a-zA-Z0-9]{6,}$/
     if (!regex2.test(this.user.username.toString())) {
       errMessages.content = ''
       errMessages.textColor = 'red'
-      errMessages.errorUsername = 'Tên đăng nhập phải có độ dài >= 6'
+      errMessages.errorUsername = 'Tên đăng nhập phải có độ dài nhiều hoặc hoặc bằng 6 ký tự'
       return false
     }
 
@@ -52,16 +52,16 @@ export class UserManager {
   }
 
   public validPassword() {
-    if (this.user.password == null) {
+    if (!this.user.password) {
       errMessages.textColor = 'red'
       errMessages.errorPassword = 'Mật khẩu không được để trống!'
       return false
     }
 
-    const regex = /^[a-zA-Z0-9]{7,}$/
+    const regex = /^[a-zA-Z0-9]{8,}$/
     if (!regex.test(this.user.password.toString())) {
       errMessages.textColor = 'red'
-      errMessages.errorPassword = 'Mật khẩu phải có độ dài >= 6'
+      errMessages.errorPassword = 'Mật khẩu phải có độ dài nhiều hoặc hoặc bằng 8 ký tự'
       return false
     }
 
@@ -70,20 +70,44 @@ export class UserManager {
     return true
   }
 
-  validConfirmPassword() {
-    if (this.user.confirmPassword == null) {
+  public validConfirmPassword() {
+    if (!this.user.confirmPassword) {
       errMessages.textColor = 'red'
-      errMessages.errorConfirmPassword = 'Xác nhận khẩu không được để trống!'
+      errMessages.errorConfirmPassword = 'Xác nhận mật khẩu không được để trống!'
       return false
     }
-    const regex = /^[a-zA-Z0-9]{7,}$/
+    const regex = /^[a-zA-Z0-9]{8,}$/
     if (!regex.test(this.user.confirmPassword.toString())) {
       errMessages.textColor = 'red'
-      errMessages.errorConfirmPassword = 'Xác nhận khẩu phải có độ dài nhiều hơn 6'
+      errMessages.errorConfirmPassword = 'Xác nhận mật khẩu phải có độ dài nhiều hơn hoặc bằng 8 ký tự'
+      return false
+    }
+
+    if(this.user.confirmPassword !== this.user.password) {
+      errMessages.textColor = 'red'
+      errMessages.errorConfirmPassword = 'Xác nhận mật khẩu không khớp mật khẩu'
+      return false
+    }
+
+    errMessages.textColor = 'white'
+    errMessages.errorConfirmPassword = ''
+    return true
+  }
+  
+  public validEmail() {
+    if (!this.user.email) {
+      errMessages.textColor = 'red'
+      errMessages.errorEmail = 'Email không được để trống!'
+      return false
+    }
+    const regex = /^[a-zA-Z][a-zA-Z0-9]{5,}@[^\s@]+\.[^\s@]+$/
+    if (!regex.test(this.user.email.toString())) {
+      errMessages.textColor = 'red'
+      errMessages.errorEmail = 'Email chưa đúng định dạng!'
       return false
     }
     errMessages.textColor = 'white'
-    errMessages.errorConfirmPassword = ''
+    errMessages.errorEmail = ''
     return true
   }
 }

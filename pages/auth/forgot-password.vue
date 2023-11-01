@@ -1,31 +1,3 @@
-<script>
-import { auth } from '~/assets/ts/auth'
-import { RedirectPage, TitlePage } from '@/constants/constants'
-import { UserManager } from '@/services/manager/UserManager'
-
-definePageMeta({
-  layout: 'auth',
-})
-
-export default {
-  data() {
-    return {
-      userManager: new UserManager(),
-      auth,
-      RedirectPage,
-    }
-  },
-  mounted() {
-    this.auth.title = TitlePage.FORGOT_PASSWORD
-  },
-  methods: {
-    send() {
-      return navigateTo(this.RedirectPage.RESET_PASSWORD)
-    },
-  },
-}
-</script>
-
 <template>
   <div class="row">
     <div id="loginForm" class="col-lg-12 ms-5">
@@ -37,11 +9,12 @@ export default {
                 <label
                   for="email"
                   class="col-sm-4 form-label text-start fw-semibold mb-12"
-                ><font-awesome-icon
-                  class="mr-1"
-                  :icon="['fas', 'envelope']"
-                />
-                  Địa chỉ email</label>
+                  ><font-awesome-icon
+                    class="mr-1"
+                    :icon="['fas', 'envelope']"
+                  />
+                  Địa chỉ email</label
+                >
               </div>
               <div class="row">
                 <div class="col-sm-10">
@@ -53,7 +26,14 @@ export default {
                     name="email"
                     aria-describedby="nameHelp"
                     placeholder="Nhập địa chỉ email"
-                  >
+                    @keyup="userManager.validEmail()"
+                  />
+                  <div class="form-text" v-if="!errMessages.errorEmail">
+                    {{ errMessages.content }}
+                  </div>
+                  <div :style="{ color: errMessages.textColor }">
+                    {{ errMessages.errorEmail }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -61,9 +41,10 @@ export default {
           <div class="row py-2">
             <div class="col-lg-10 text-end">
               <button
+                v-if="canSend"
                 type="button"
                 class="btn-login btn btn-primary"
-                @click="send"
+                @click="send()"
               >
                 Gửi
                 <font-awesome-icon
@@ -71,14 +52,24 @@ export default {
                   :icon="['fas', 'paper-plane']"
                 />
               </button>
+              <button
+                v-else
+                type="button"
+                class="btn-login btn btn-success"
+                @click="send()"
+                disabled
+              >
+                Đang gửi ...
+              </button>
             </div>
           </div>
           <div class="row py-2">
             <div class="col-lg-10 text-center text-info">
-              <a
-                :href="RedirectPage.LOGIN"
+              <NuxtLink
+                :to="RedirectPage.LOGIN"
                 class="text-decoration-none go-back-home"
-              >Trở về trang đăng nhập</a>
+                >Trở về trang đăng nhập</NuxtLink
+              >
             </div>
           </div>
         </form>
@@ -86,6 +77,81 @@ export default {
     </div>
   </div>
 </template>
+
+<script>
+import { auth, errMessages } from "~/assets/ts/auth";
+import { RedirectPage, ResponseStatus, TitlePage } from "@/constants/constants";
+import { UserManager } from "@/services/manager/UserManager";
+
+definePageMeta({
+  layout: "auth",
+});
+
+export default {
+  data() {
+    return {
+      userManager: new UserManager(),
+      auth,
+      errMessages,
+      RedirectPage,
+      canSend: true,
+    };
+  },
+  mounted() {
+    this.auth.title = TitlePage.FORGOT_PASSWORD;
+  },
+  methods: {
+    async send() {
+      try {
+        if (!this.canSend) {
+          this.$toastify.info(
+            "Need to wait 5 seconds to send the next request..."
+          );
+          return;
+        }
+
+        let data = {
+          email: this.userManager.getUser().email,
+        };
+
+        if (this.userManager.validEmail()) {
+          this.canSend = false;
+
+          errMessages.content =
+            "Email đang được gửi đi, vui lòng chờ trong giây lát...";
+
+          const response = await this.$api("auth/forget-password", {
+            method: "POST",
+            body: JSON.stringify(data),
+          });
+
+          if (response?.status == ResponseStatus.HTTP_OK) {
+            errMessages.content =
+              "Email đã được gửi thành công, vui lòng kiểm tra email của bạn!";
+          } else {
+            errMessages.content =
+              "Email đã được gửi thất bại, vui lòng thử lại sau!";
+          }
+          this.$toastify.successV2(response.message);
+
+          this.canSend = true;
+        }
+      } catch (error) {
+        console.error("Error during login:" + error);
+
+        if (error.status == ResponseStatus.HTTP_UNPROCESSABLE_ENTITY)
+          this.$toastify.error(
+            "Không tồn tại email " +
+              this.userManager.getUser().email +
+              " vui lòng thử lại"
+          );
+
+        this.canSend = true;
+      }
+    },
+  },
+};
+</script>
 
 <style scoped lang="scss">
 @import url("~/assets/scss/auth.scss");
