@@ -141,7 +141,7 @@ export default {
           username: this.userManager.getUser().username,
           password: this.userManager.getUser().password,
         };
-        
+
         if (!dataLogin.username) this.userManager.validUsername();
         if (!dataLogin.password) this.userManager.validPassword();
 
@@ -163,7 +163,9 @@ export default {
             localStorage.setItem("token", token);
             localStorage.setItem("userInformation", userInformation);
 
-            this.$router.push(RedirectPage.HOME);
+            setTimeout(() => {
+              this.$router.push(RedirectPage.HOME);
+            }, 1000)
           } else if (response?.status == ResponseStatus.HTTP_UNAUTHORIZED) {
             this.$toastify.error("Username or password is incorrect");
           }

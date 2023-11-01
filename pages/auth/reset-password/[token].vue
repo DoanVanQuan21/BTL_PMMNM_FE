@@ -14,17 +14,32 @@
                 >
               </div>
               <div class="row">
-                <div class="col-sm-10">
+                <div class="col-sm-10 input-type-password">
                   <input
                     id="input-password"
                     v-model="userManager.getUser().password"
-                    type="password"
+                    :type="userManager.showPassword ? 'text' : 'password'"
                     class="form-control rounded-pill border border-1 border-dark input-type-text"
                     name="password"
                     aria-describedby="nameHelp"
                     placeholder="Nhập mật khẩu mới"
                     @keyup="userManager.validPassword"
                   />
+
+                  <div class="input-group-append">
+                    <span
+                      class="icon-show-hide-password"
+                      @click="
+                        userManager.showPassword = !userManager.showPassword
+                      "
+                    >
+                      <font-awesome-icon
+                        v-if="!userManager.showPassword"
+                        :icon="['fas', 'eye']"
+                      />
+                      <font-awesome-icon v-else :icon="['fas', 'eye-slash']" />
+                    </span>
+                  </div>
 
                   <div :style="{ color: errMessages.textColor }">
                     {{ errMessages.errorPassword }}
@@ -47,16 +62,32 @@
                 >
               </div>
               <div class="row">
-                <div class="col-sm-10">
+                <div class="col-sm-10 input-type-password">
                   <input
                     id="input-confirm-password"
                     v-model="userManager.getUser().confirmPassword"
-                    type="password"
+                    :type="userManager.showConfirmPassword ? 'text' : 'password'"
                     class="form-control rounded-pill border border-dark input-type-text"
                     name="confirmPassword"
                     placeholder="Nhập mật khẩu"
                     @keyup="userManager.validConfirmPassword()"
                   />
+                  
+                  <div class="input-group-append">
+                    <span
+                      class="icon-show-hide-password"
+                      @click="
+                        userManager.showConfirmPassword = !userManager.showConfirmPassword
+                      "
+                    >
+                      <font-awesome-icon
+                        v-if="!userManager.showConfirmPassword"
+                        :icon="['fas', 'eye']"
+                      />
+                      <font-awesome-icon v-else :icon="['fas', 'eye-slash']" />
+                    </span>
+                  </div>
+
                   <div :style="{ color: errMessages.textColor }">
                     {{ errMessages.errorConfirmPassword }}
                   </div>

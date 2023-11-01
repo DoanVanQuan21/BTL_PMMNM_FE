@@ -32,7 +32,7 @@ export default {
           </div>
           <div class="row py-4">
             <div class="col-lg-12">
-              <h1 class="text-center fw-bold">
+              <h1 class="text-center fw-bold text-dark">
                 {{ auth.title }}
               </h1>
             </div>

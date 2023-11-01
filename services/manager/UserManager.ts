@@ -4,6 +4,7 @@ import { errMessages, slogan } from '~/assets/ts/auth'
 export class UserManager {
   public user: User = new User()
   public showPassword: Boolean = false
+  public showConfirmPassword: Boolean = false
   public UserManager(user: User) {
     this.user = user
   }

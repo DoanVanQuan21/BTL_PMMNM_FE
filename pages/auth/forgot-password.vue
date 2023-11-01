@@ -126,13 +126,12 @@ export default {
           });
 
           if (response?.status == ResponseStatus.HTTP_OK) {
-            errMessages.content =
-              "Email đã được gửi thành công, vui lòng kiểm tra email của bạn!";
+            this.$router.push(RedirectPage.CONFIRM_EMAIL);
           } else {
             errMessages.content =
               "Email đã được gửi thất bại, vui lòng thử lại sau!";
+            this.$toastify.successV2(response.message);
           }
-          this.$toastify.successV2(response.message);
 
           this.canSend = true;
         }

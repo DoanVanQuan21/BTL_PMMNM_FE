@@ -6,6 +6,7 @@ export class TitlePage {
   static readonly RESET_PASSWORD = "Đổi mật khẩu";
   static readonly SETTING_ACCOUNT = "Cài đặt tài khoản";
   static readonly PATIENT_RECORDS = "Hồ sơ bệnh nhân";
+  static readonly CONFIRM_EMAIL = "Kiểm tra email";
 }
 export class RedirectPage {
   static readonly HOME = "/admin/home";
@@ -16,6 +17,8 @@ export class RedirectPage {
   static readonly FORGOT_PASSWORD = "/auth/forgot-password";
   static readonly AUTH_ACCOUNT = "/auth/authentication-account";
   static readonly RESET_PASSWORD = "/auth/reset-password";
+  static readonly CONFIRM_EMAIL = "/auth/confirm-email";
+  static readonly URL_GMAIL_PAGE = "https://mail.google.com/";
 }
 
 export class ResponseStatus {
