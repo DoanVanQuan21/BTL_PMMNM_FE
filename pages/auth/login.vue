@@ -89,10 +89,10 @@
               >
             </div>
             <div class="col-sm-4 offset-sm-1 text-start">
-              <a
-                :href="RedirectPage.FORGOT_PASSWORD"
+              <NuxtLink
+                :to="RedirectPage.FORGOT_PASSWORD"
                 class="text-decoration-none text-black hover-change-color"
-                >Quên mật khẩu</a
+                >Quên mật khẩu</NuxtLink
               >
             </div>
           </div>
@@ -142,23 +142,33 @@ export default {
           password: this.userManager.getUser().password,
         };
 
-        const response = await this.$api("auth/login", {
-          method: "POST",
-          body: JSON.stringify(dataLogin),
-        });
+        if (!dataLogin.username) this.userManager.validUsername();
+        if (!dataLogin.password) this.userManager.validPassword();
 
-        if (response?.status == ResponseStatus.HTTP_OK) {
-          this.$toastify.success("Login successful");
-          const data = response.results;
-          let token = data.token.accessToken;
-          let userInformation = data.token.user;
+        if (
+          !this.errMessages.errorUsername &&
+          !this.errMessages.errorPassword
+        ) {
+          const response = await this.$api("auth/login", {
+            method: "POST",
+            body: JSON.stringify(dataLogin),
+          });
 
-          localStorage.setItem('token', token)
-          localStorage.setItem('userInformation', userInformation)
+          if (response?.status == ResponseStatus.HTTP_OK) {
+            this.$toastify.success("Login successful");
+            const data = response.results;
+            let token = data.token.accessToken;
+            let userInformation = data.token.user;
 
-          this.$router.push(RedirectPage.HOME);
-        } else if (response?.status == ResponseStatus.HTTP_UNAUTHORIZED) {
-          this.$toastify.error("Username or password is incorrect");
+            localStorage.setItem("token", token);
+            localStorage.setItem("userInformation", userInformation);
+
+            setTimeout(() => {
+              this.$router.push(RedirectPage.HOME);
+            }, 1000)
+          } else if (response?.status == ResponseStatus.HTTP_UNAUTHORIZED) {
+            this.$toastify.error("Username or password is incorrect");
+          }
         }
       } catch (error) {
         console.error("Error during login:" + error);

@@ -1,5 +1,5 @@
 {
-  "name": "hithaui",
+  "name": "medicare",
   "private": true,
   "scripts": {
     "build": "nuxt build",

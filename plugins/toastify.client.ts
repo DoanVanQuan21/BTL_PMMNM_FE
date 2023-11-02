@@ -16,7 +16,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           toast(msg, {
             limit: 5,
             type: "success",
-            autoClose: 1000,
+            autoClose: 2000,
           } as ToastOptions);
         },
         error: (msg: string) => {
@@ -40,6 +40,13 @@ export default defineNuxtPlugin((nuxtApp) => {
             autoClose: 2000,
           } as ToastOptions);
         },
+        successV2: (msg: string) => {
+          toast(msg, {
+            limit: 2,
+            type: "success",
+            autoClose: 3000,
+          } as ToastOptions);
+        }
       },
     },
   };

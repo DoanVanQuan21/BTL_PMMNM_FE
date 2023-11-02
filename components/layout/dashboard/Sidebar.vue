@@ -14,7 +14,7 @@ BaseEnable.active = 'collapsed'
   >
     <ul id="sidebar-nav" class="sidebar-nav">
       <li class="nav-item">
-        <a class="nav-link" :href="RedirectPage.HOME" :class="ActivePages.OverviewPage">
+        <NuxtLink class="nav-link" :to="RedirectPage.HOME" :class="ActivePages.OverviewPage">
           <div class="d-flex">
             <p class="overview-icon">
               <img
@@ -26,11 +26,11 @@ BaseEnable.active = 'collapsed'
             </p>
             <span class="ms-3" :hidden="BaseEnable.isHidden">Tổng quan</span>
           </div>
-        </a>
+        </NuxtLink>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="#" :class="ActivePages.AppointmentPage">
+        <NuxtLink class="nav-link" to="#" :class="ActivePages.AppointmentPage">
           <div class="d-flex">
             <p class="calendar-icon">
               <img
@@ -42,11 +42,11 @@ BaseEnable.active = 'collapsed'
             </p>
             <span class="ms-3" :hidden="BaseEnable.isHidden"> Lịch hẹn</span>
           </div>
-        </a>
+        </NuxtLink>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="#" :class="ActivePages.MEPage">
+        <NuxtLink class="nav-link" to="#" :class="ActivePages.MEPage">
           <div class="d-flex">
             <p class="medical_examination-icon">
               <img
@@ -58,15 +58,15 @@ BaseEnable.active = 'collapsed'
             </p>
             <span class="ms-3" :hidden="BaseEnable.isHidden"> Ca khám</span>
           </div>
-        </a>
+        </NuxtLink>
       </li>
 
       <li class="nav-item">
-        <a
+        <NuxtLink
           class="nav-link"
           data-bs-target="#forms-nav"
           data-bs-toggle="collapse"
-          :href="RedirectPage.PATIENT_RECORDS"
+          :to="RedirectPage.PATIENT_RECORDS"
           :class="ActivePages.PRPage"
         >
           <div class="d-flex">
@@ -81,15 +81,15 @@ BaseEnable.active = 'collapsed'
             <span class="ms-3" :hidden="BaseEnable.isHidden">
               Hồ sơ bệnh nhân</span>
           </div>
-        </a>
+        </NuxtLink>
       </li>
 
       <li class="nav-item">
-        <a
+        <NuxtLink
           class="nav-link"
           data-bs-target="#tables-nav"
           data-bs-toggle="collapse"
-          href="#"
+          to="#"
           :class="ActivePages.LAPage"
         >
           <div class="d-flex">
@@ -104,14 +104,14 @@ BaseEnable.active = 'collapsed'
             <span class="ms-3" :hidden="BaseEnable.isHidden">
               Danh sách tài khoản</span>
           </div>
-        </a>
+        </NuxtLink>
       </li>
       <li class="nav-item">
-        <a
+        <NuxtLink
           class="nav-link"
           data-bs-target="#tables-nav"
           data-bs-toggle="collapse"
-          href="#"
+          to="#"
           :class="ActivePages.MMPage"
         >
           <div class="d-flex">
@@ -126,14 +126,14 @@ BaseEnable.active = 'collapsed'
             <span class="ms-3" :hidden="BaseEnable.isHidden">
               Quản lý thuốc</span>
           </div>
-        </a>
+        </NuxtLink>
       </li>
       <li class="nav-item">
-        <a
+        <NuxtLink
           class="nav-link"
           data-bs-target="#tables-nav"
           data-bs-toggle="collapse"
-          href="#"
+          to="#"
           :class="ActivePages.SMPage"
         >
           <div class="d-flex">
@@ -148,14 +148,14 @@ BaseEnable.active = 'collapsed'
             <span class="ms-3" :hidden="BaseEnable.isHidden">
               Quản lý dịch vụ</span>
           </div>
-        </a>
+        </NuxtLink>
       </li>
       <li class="nav-item">
-        <a
+        <NuxtLink
           class="nav-link"
           data-bs-target="#tables-nav"
           data-bs-toggle="collapse"
-          href="#"
+          to="#"
           :class="ActivePages.RMPage"
         >
           <div class="d-flex">
@@ -170,7 +170,7 @@ BaseEnable.active = 'collapsed'
             <span class="ms-3" :hidden="BaseEnable.isHidden">
               Quản lý báo cáo</span>
           </div>
-        </a>
+        </NuxtLink>
       </li>
     </ul>
   </aside>

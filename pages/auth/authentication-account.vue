@@ -1,11 +1,11 @@
 <script>
-import { auth } from '~/assets/ts/auth'
-import { RedirectPage, TitlePage } from '@/constants/constants'
-import { UserManager } from '@/services/manager/UserManager'
+import { auth } from "~/assets/ts/auth";
+import { RedirectPage, TitlePage } from "@/constants/constants";
+import { UserManager } from "@/services/manager/UserManager";
 
 definePageMeta({
-  layout: 'auth',
-})
+  layout: "auth",
+});
 
 export default {
   data() {
@@ -13,18 +13,18 @@ export default {
       userManager: new UserManager(),
       auth,
       RedirectPage,
-    }
+    };
   },
   mounted() {
-    auth.title = TitlePage.AUTH_ACCOUNT
+    auth.title = TitlePage.AUTH_ACCOUNT;
   },
   methods: {
     send() {
       // eslint-disable-next-line no-alert
-      alert(this.userManager.getUser().email)
+      alert(this.userManager.getUser().email);
     },
   },
-}
+};
 </script>
 
 <template>
@@ -38,11 +38,12 @@ export default {
                 <label
                   for="email"
                   class="col-sm-4 form-label text-start fw-semibold mb-12"
-                ><font-awesome-icon
-                  class="mr-1"
-                  :icon="['fas', 'envelope']"
-                />
-                  Địa chỉ email</label>
+                  ><font-awesome-icon
+                    class="mr-1"
+                    :icon="['fas', 'envelope']"
+                  />
+                  Địa chỉ email</label
+                >
               </div>
               <div class="row">
                 <div class="col-sm-10">
@@ -54,7 +55,7 @@ export default {
                     name="email"
                     aria-describedby="nameHelp"
                     placeholder="Nhập địa chỉ email"
-                  >
+                  />
                 </div>
               </div>
             </div>
@@ -76,10 +77,11 @@ export default {
           </div>
           <div class="row py-2">
             <div class="col-lg-10 text-center text-info">
-              <a
-                :href="RedirectPage.LOGIN"
+              <NuxtLink
+                :to="RedirectPage.LOGIN"
                 class="text-decoration-none go-back-home"
-              >Trở về trang đăng nhập</a>
+                >Trở về trang đăng nhập</NuxtLink
+              >
             </div>
           </div>
         </form>
