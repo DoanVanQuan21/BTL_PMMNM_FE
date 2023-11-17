@@ -17,14 +17,14 @@
               <div class="row">
                 <div class="col-sm-10">
                   <input
-                    v-model="userCredentials.username"
+                    id="inputName"
+                    v-model="userManager.getUser().username"
                     type="text"
                     class="form-control border-dark input-type-text"
                     name="username"
-                    id="inputName"
                     aria-describedby="nameHelp"
                     placeholder="Nhập tên tài khoản"
-                    @keyup="validUsername"
+                    @keyup="userManager.validUsername()"
                   />
                   <div class="form-text">
                     {{ errMessages.content }}
@@ -49,21 +49,23 @@
               <div class="row">
                 <div class="col-sm-10 input-type-password">
                   <input
-                    v-model="userCredentials.password"
-                    :type="showPassword ? 'text' : 'password'"
+                    id="inputPass"
+                    v-model="userManager.getUser().password"
+                    :type="userManager.showPassword ? 'text' : 'password'"
                     class="form-control border-dark input-type-text"
                     name="password"
-                    id="inputPass"
                     placeholder="Nhập mật khẩu"
-                    @keyup="validPassword"
+                    @keyup="userManager.validPassword()"
                   />
                   <div class="input-group-append">
                     <span
                       class="icon-show-hide-password"
-                      @click="showPassword = !showPassword"
+                      @click="
+                        userManager.showPassword = !userManager.showPassword
+                      "
                     >
                       <font-awesome-icon
-                        v-if="!showPassword"
+                        v-if="!userManager.showPassword"
                         :icon="['fas', 'eye']"
                       />
                       <font-awesome-icon v-else :icon="['fas', 'eye-slash']" />
@@ -87,10 +89,10 @@
               >
             </div>
             <div class="col-sm-4 offset-sm-1 text-start">
-              <a
-                href="./forgot-password"
+              <NuxtLink
+                :to="RedirectPage.FORGOT_PASSWORD"
                 class="text-decoration-none text-black hover-change-color"
-                >Quên mật khẩu</a
+                >Quên mật khẩu</NuxtLink
               >
             </div>
           </div>
@@ -110,107 +112,68 @@
     </div>
   </div>
 </template>
+
 <script lang="ts">
-import { ref, computed } from "vue";
-import { auth, errMessages, sologon } from "~/assets/ts/auth";
+import { auth, errMessages } from "@/assets/ts/auth";
+import { UserManager } from "@/services/manager/UserManager";
+import { RedirectPage, ResponseStatus, TitlePage } from "@/constants/constants";
+
+definePageMeta({
+  layout: "auth",
+});
 
 export default {
   data() {
     return {
-      showPassword: false,
-      auth: auth,
+      userManager: new UserManager(),
+      auth,
+      errMessages,
+      RedirectPage,
     };
   },
-  setup() {
-    auth.title = "Đăng nhập";
-    const userCredentials = ref({ username: "", password: "" });
+  mounted() {
+    this.auth.title = TitlePage.LOGIN_PAGE;
+  },
+  methods: {
+    async handleLogin() {
+      try {
+        let dataLogin = {
+          username: this.userManager.getUser().username,
+          password: this.userManager.getUser().password,
+        };
 
-    const errMessages = ref({
-      content: "",
-      textColor: "",
-      errorUsername: "",
-      errorPassword: "",
-    });
+        if (!dataLogin.username) this.userManager.validUsername();
+        if (!dataLogin.password) this.userManager.validPassword();
 
-    definePageMeta({
-      layout: "auth",
-    });
+        if (
+          !this.errMessages.errorUsername &&
+          !this.errMessages.errorPassword
+        ) {
+          const response = await this.$api("auth/login", {
+            method: "POST",
+            body: JSON.stringify(dataLogin),
+          });
 
-    const authStore = useAuthStore();
+          if (response?.status == ResponseStatus.HTTP_OK) {
+            this.$toastify.success("Login successful");
+            const data = response.results;
+            let token = data.token.accessToken;
+            let userInformation = data.token.user;
 
-    const isValidUsername = computed(() => !userCredentials.value.username);
-    const isValidPassword = computed(() => !userCredentials.value.password);
+            localStorage.setItem("token", token);
+            localStorage.setItem("userInformation", userInformation);
 
-    const validUsername = () => {
-      if (isValidUsername.value) {
-        errMessages.value.content = "";
-        errMessages.value.textColor = "red";
-        errMessages.value.errorUsername = "Tên đăng nhập không được để trống!";
-        return;
+            setTimeout(() => {
+              this.$router.push(RedirectPage.HOME);
+            }, 1000)
+          } else if (response?.status == ResponseStatus.HTTP_UNAUTHORIZED) {
+            this.$toastify.error("Username or password is incorrect");
+          }
+        }
+      } catch (error) {
+        console.error("Error during login:" + error);
       }
-
-      const regex = /[a-zA-Z]/;
-      if (!regex.test(userCredentials.value.username)) {
-        errMessages.value.content = "";
-        errMessages.value.textColor = "red";
-        errMessages.value.errorUsername =
-          "Tên đăng nhập phải bắt đầu bằng ký tự!";
-        return false;
-      }
-
-      const regex2 = /^[a-zA-Z0-9]{7,}$/;
-      if (!regex2.test(userCredentials.value.username)) {
-        errMessages.value.content = "";
-        errMessages.value.textColor = "red";
-        errMessages.value.errorUsername = "Tên đăng nhập phải có độ dài >= 6";
-        return false;
-      }
-
-      errMessages.value.content = sologon;
-      errMessages.value.textColor = "white";
-      errMessages.value.errorUsername = "";
-      return true;
-    };
-
-    const validPassword = () => {
-      if (isValidPassword.value) {
-        errMessages.value.textColor = "red";
-        errMessages.value.errorPassword = "Mật khẩu không được để trống!";
-        return false;
-      }
-
-      const regex = /^[a-zA-Z0-9]{7,}$/;
-      if (!regex.test(userCredentials.value.password)) {
-        errMessages.value.textColor = "red";
-        errMessages.value.errorPassword = "Mật khẩu phải có độ dài >= 6";
-        return false;
-      }
-
-      errMessages.value.textColor = "red";
-      errMessages.value.errorPassword = "";
-      return true;
-    };
-
-    const handleLogin = async () => {
-      if (validUsername() || validPassword()) {
-        return;
-      }
-      // eslint-disable-next-line no-alert
-      alert("Đăng nhập thành công");
-      await authStore.login(userCredentials.value);
-      navigateTo("./home");
-    };
-
-    return {
-      auth,
-      userCredentials,
-      errMessages,
-      isValidUsername,
-      isValidPassword,
-      validUsername,
-      validPassword,
-      handleLogin,
-    };
+    },
   },
 };
 </script>

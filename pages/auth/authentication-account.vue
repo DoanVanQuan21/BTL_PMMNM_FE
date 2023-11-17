@@ -1,18 +1,30 @@
-<script setup lang="ts">
-import { auth, errMessages } from "~/assets/ts/auth";
+<script>
+import { auth } from "~/assets/ts/auth";
+import { RedirectPage, TitlePage } from "@/constants/constants";
+import { UserManager } from "@/services/manager/UserManager";
 
 definePageMeta({
   layout: "auth",
 });
-auth.title = "Xác thực tài khoản";
-const userCredentials = reactive({
-  username: "",
-  password: "",
-  email: "",
-});
-async function send() {
-  return navigateTo("/login");
-}
+
+export default {
+  data() {
+    return {
+      userManager: new UserManager(),
+      auth,
+      RedirectPage,
+    };
+  },
+  mounted() {
+    auth.title = TitlePage.AUTH_ACCOUNT;
+  },
+  methods: {
+    send() {
+      // eslint-disable-next-line no-alert
+      alert(this.userManager.getUser().email);
+    },
+  },
+};
 </script>
 
 <template>
@@ -37,14 +49,13 @@ async function send() {
                 <div class="col-sm-10">
                   <input
                     id="email"
-                    v-model="userCredentials.email"
+                    v-model="userManager.getUser().email"
                     type="text"
                     class="form-control rounded-pill border border-1 border-dark input-type-text"
                     name="email"
                     aria-describedby="nameHelp"
                     placeholder="Nhập địa chỉ email"
                   />
-                  <div>{{ errMessages.errEmail }}</div>
                 </div>
               </div>
             </div>
@@ -56,14 +67,20 @@ async function send() {
                 class="btn-login btn btn-primary"
                 @click="send"
               >
-                Gửi <font-awesome-icon class="ml-1" :icon="['fas', 'paper-plane']" />
+                Gửi
+                <font-awesome-icon
+                  class="ml-1"
+                  :icon="['fas', 'paper-plane']"
+                />
               </button>
             </div>
           </div>
           <div class="row py-2">
-            <div class="col-lg-10 text-center text-info fs-5">
-              <a href="./login" class="text-decoration-none go-back-home"
-                >Trở về trang đăng nhập</a
+            <div class="col-lg-10 text-center text-info">
+              <NuxtLink
+                :to="RedirectPage.LOGIN"
+                class="text-decoration-none go-back-home"
+                >Trở về trang đăng nhập</NuxtLink
               >
             </div>
           </div>

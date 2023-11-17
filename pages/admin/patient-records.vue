@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Patient } from '~/assets/ts/BaseClasses'
 import { ActivePages, BaseTitleDisplay } from '~/assets/ts/BaseWebApplication'
+import { PatientManager } from '@/services/manager/PatientManager'
 
 definePageMeta({
   layout: 'dashboard',
 })
-const patients = Patient.getAllPatient()
+const patients = PatientManager.getAllPatient()
 ActivePages.PRPage = ''
 const CheckBox = reactive({
   isCheckAll: false,
@@ -13,8 +13,7 @@ const CheckBox = reactive({
 function clickCheckAll() {
   if (CheckBox.isCheckAll)
     CheckBox.isCheckAll = false
-  else
-    CheckBox.isCheckAll = true
+  else CheckBox.isCheckAll = true
 }
 BaseTitleDisplay.childs.push('Hồ sơ bệnh nhân')
 </script>
@@ -26,7 +25,13 @@ BaseTitleDisplay.childs.push('Hồ sơ bệnh nhân')
         <form class="patient-records">
           <div class="row mt-2 text-center">
             <div class="col-lg-4 text-end">
-              <input id="fullname" type="search" name="fullname" class="form-control" placeholder="Tìm kiếm mã bệnh nhân, tên bệnh nhân">
+              <input
+                id="fullname"
+                type="search"
+                name="fullname"
+                class="form-control"
+                placeholder="Tìm kiếm mã bệnh nhân, tên bệnh nhân"
+              >
             </div>
             <div class="col-lg-3 text-end" />
             <div class="col-lg-2 text-end" />
@@ -40,7 +45,13 @@ BaseTitleDisplay.childs.push('Hồ sơ bệnh nhân')
             <table>
               <tr>
                 <th>
-                  <input id="checkAlls" type="checkbox" name="checkAll" class="form-check-input" @click="clickCheckAll">
+                  <input
+                    id="checkAlls"
+                    type="checkbox"
+                    name="checkAll"
+                    class="form-check-input"
+                    @click="clickCheckAll"
+                  >
                 </th>
                 <th>STT</th>
                 <th>Số BHYT</th>
@@ -52,7 +63,15 @@ BaseTitleDisplay.childs.push('Hồ sơ bệnh nhân')
                 <th>Trạng thái</th>
               </tr>
               <tr v-for="(patient, index) in patients" :key="index">
-                <td><input id="ckb" type="checkbox" name="ckb" class="form-check-input" :checked="CheckBox.isCheckAll"></td>
+                <td>
+                  <input
+                    id="ckb"
+                    type="checkbox"
+                    name="ckb"
+                    class="form-check-input"
+                    :checked="CheckBox.isCheckAll"
+                  >
+                </td>
                 <td>{{ index }}</td>
                 <td>{{ patient.healthInsuranceNumber }}</td>
                 <td>{{ patient.fullname }}</td>
@@ -61,8 +80,12 @@ BaseTitleDisplay.childs.push('Hồ sơ bệnh nhân')
                 <td>{{ patient.gender }}</td>
                 <td>{{ patient.address }}</td>
                 <td>
-                  <button type="submit" class="btn btn-success me-1">Sửa</button>
-                  <button type="submit" class="btn btn-danger">Xóa</button>
+                  <button type="submit" class="btn btn-success me-1">
+                    Sửa
+                  </button>
+                  <button type="submit" class="btn btn-danger">
+                    Xóa
+                  </button>
                 </td>
               </tr>
             </table>
@@ -74,7 +97,7 @@ BaseTitleDisplay.childs.push('Hồ sơ bệnh nhân')
 </template>
 
 <style lang="scss">
-td{
+td {
   padding-top: 20px;
 }
 </style>
